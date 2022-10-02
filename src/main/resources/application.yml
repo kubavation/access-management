@@ -5,5 +5,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/company-management
     username: postgres
     password: root
+  application:
+    name: access-management
 server:
   port: 8082
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8777/eureka/
