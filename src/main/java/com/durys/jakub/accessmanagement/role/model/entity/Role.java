@@ -23,4 +23,9 @@ public class Role {
 
     @Column(name = "CREATED_AT")
     private LocalDateTime createdAt;
+
+    public Role(String name, String desc) {
+        this.name = name;
+        this.desc = desc;
+    }
 }
