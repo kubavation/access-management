@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.role.model;
+package com.durys.jakub.accessmanagement.role.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
