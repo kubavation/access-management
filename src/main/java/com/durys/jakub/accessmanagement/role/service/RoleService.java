@@ -28,7 +28,7 @@ public class RoleService {
 
         roleRepository.findByName(roleDTO.getName())
                 .ifPresent((role) -> {
-                    throw new RoleWithNameAlreadyExistsException(role.getName())
+                    throw new RoleWithNameAlreadyExistsException(role.getName());
                 });
 
         Role entity = toEntity(roleDTO);
