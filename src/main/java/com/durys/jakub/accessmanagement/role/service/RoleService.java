@@ -1,5 +1,6 @@
 package com.durys.jakub.accessmanagement.role.service;
 
+import com.durys.jakub.accessmanagement.role.exception.RoleWithNameAlreadyExistsException;
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.role.model.entity.Role;
@@ -24,6 +25,12 @@ public class RoleService {
     }
 
     public void create(RoleDTO roleDTO) {
+
+        roleRepository.findByName(roleDTO.getName())
+                .ifPresent((role) -> {
+                    throw new RoleWithNameAlreadyExistsException(role.getName())
+                });
+
         Role entity = toEntity(roleDTO);
         entity.setCreatedAt(LocalDateTime.now());
         roleRepository.save(entity);
