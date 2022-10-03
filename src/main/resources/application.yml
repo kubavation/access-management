@@ -7,6 +7,9 @@ spring:
     password: root
   application:
     name: access-management
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
 server:
   port: 8082
 eureka:
