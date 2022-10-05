@@ -26,13 +26,18 @@ public class RoleService {
 
     public void create(RoleDTO roleDTO) {
 
-        roleRepository.findByName(roleDTO.getName())
-                .ifPresent((role) -> {
-                    throw new RoleWithNameAlreadyExistsException(role.getName());
-                });
+        validateRole(roleDTO);
 
         Role entity = toEntity(roleDTO);
         entity.setCreatedAt(LocalDateTime.now());
         roleRepository.save(entity);
+    }
+
+    public void validateRole(RoleDTO roleDTO) {
+
+        if (roleRepository.findByName(roleDTO.getName()).isPresent()) {
+            throw new RoleWithNameAlreadyExistsException(roleDTO.getName());
+        }
+
     }
 }
