@@ -3,6 +3,7 @@ package com.durys.jakub.accessmanagement.user.model.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +22,8 @@ public class User {
     private Long id;
 
     private String username;
+
+    @ToString.Exclude
     private String password;
 
     @Column(name = "employee_id")
