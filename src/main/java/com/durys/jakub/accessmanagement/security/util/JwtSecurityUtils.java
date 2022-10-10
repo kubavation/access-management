@@ -1,12 +1,15 @@
 package com.durys.jakub.accessmanagement.security.util;
 
+import com.durys.jakub.accessmanagement.user.model.util.AmUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import liquibase.pro.packaged.D;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -16,9 +19,14 @@ public class JwtSecurityUtils {
     private static final String SECRET_KEY = "am-secret-key";
 
 
-    private String createToken(String subject, Map<String, Object> claims) {
+    public String generateToken(String subject) {
+        return createToken(subject);
+    }
+
+
+    private String createToken(String subject) {
         return Jwts.builder()
-                .addClaims(claims)
+                .addClaims(new HashMap<>())
                 .setSubject(subject)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date()) //todo
@@ -39,5 +47,17 @@ public class JwtSecurityUtils {
 
     public String getUsername(String token) {
         return extractClaim(token, Claims::getSubject);
+    }
+
+    public boolean isTokenExpired(String token) {
+        Date expirationDate = extractClaim(token, Claims::getExpiration);
+        //TODO
+        return false;
+    }
+
+    public boolean validateToken(String token, AmUserDetails userDetails) {
+        return StringUtils.isEmpty(token)
+                && userDetails.getUsername().equals(getUsername(token))
+                && !isTokenExpired(token);
     }
 }
