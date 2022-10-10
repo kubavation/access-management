@@ -29,7 +29,7 @@ public class JwtSecurityUtils {
                 .addClaims(new HashMap<>())
                 .setSubject(subject)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date()) //todo
+                .setExpiration(JwtDateUtils.getExpirationDate(new Date()))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
@@ -51,8 +51,7 @@ public class JwtSecurityUtils {
 
     public boolean isTokenExpired(String token) {
         Date expirationDate = extractClaim(token, Claims::getExpiration);
-        //TODO
-        return false;
+        return expirationDate.after(new Date());
     }
 
     public boolean validateToken(String token, AmUserDetails userDetails) {

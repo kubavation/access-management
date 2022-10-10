@@ -16,3 +16,5 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8777/eureka/
+jwt:
+  hoursToExpire: 1
