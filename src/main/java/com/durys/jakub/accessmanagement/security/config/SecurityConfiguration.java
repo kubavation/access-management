@@ -21,10 +21,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final int PASSWORD_STRENGTH = 5;
     private final AmUserDetailsService amUserDetailsService;
 
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        super.configure(auth);
-        auth.userDetailsService(amUserDetailsService);
+        auth.userDetailsService(amUserDetailsService)
+                .passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Bean
