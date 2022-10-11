@@ -36,6 +36,8 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
         user.setCreatedBy("todo-operator");
+        user.setStatus("A");
+        user.setLocked(false);
 
         userRepository.save(user);
     }
