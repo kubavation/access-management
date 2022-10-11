@@ -3,6 +3,7 @@ package com.durys.jakub.accessmanagement.authentication.service;
 import com.durys.jakub.accessmanagement.authentication.model.AuthenticationRequest;
 import com.durys.jakub.accessmanagement.authentication.model.AuthenticationResponse;
 import com.durys.jakub.accessmanagement.security.util.JwtSecurityUtils;
+import com.durys.jakub.accessmanagement.user.exception.BadCredentialsException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,7 +34,7 @@ public class AuthenticationService {
 
         } catch (AuthenticationException ex) {
             log.error("error in authentication", ex);
-            throw new RuntimeException("TODO");
+            throw new BadCredentialsException();
         }
 
         UserDetails user = userDetailsService.loadUserByUsername(auth.getUsername());

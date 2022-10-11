@@ -1,5 +1,6 @@
 package com.durys.jakub.accessmanagement.user.service;
 
+import com.durys.jakub.accessmanagement.user.exception.UserNotFoundException;
 import com.durys.jakub.accessmanagement.user.model.entity.User;
 import com.durys.jakub.accessmanagement.user.model.util.AmUserDetails;
 import com.durys.jakub.accessmanagement.user.repository.UserRepository;
@@ -14,19 +15,14 @@ public class UserService {
 
     public User findByUsername(String username) {
         return userRepository.findByUsername(username)
-                .orElseThrow(RuntimeException::new); //todo
-    }
-
-    public User findById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(RuntimeException::new); //todo
+                .orElseThrow(() -> new UserNotFoundException(username));
     }
 
     public static AmUserDetails toAmUserDetails(User user) {
         return AmUserDetails.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .isEnabled(!user.isLocked()) //todo
+                .isEnabled(!user.isLocked())
                 .build();
     }
 }
