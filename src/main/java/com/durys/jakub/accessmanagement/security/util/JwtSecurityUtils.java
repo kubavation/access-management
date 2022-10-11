@@ -4,13 +4,11 @@ import com.durys.jakub.accessmanagement.user.model.util.AmUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import liquibase.pro.packaged.D;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Function;
 
 @Service
@@ -54,7 +52,7 @@ public class JwtSecurityUtils {
         return expirationDate.after(new Date());
     }
 
-    public boolean validateToken(String token, AmUserDetails userDetails) {
+    public boolean isTokenValid(String token, AmUserDetails userDetails) {
         return StringUtils.isEmpty(token)
                 && userDetails.getUsername().equals(getUsername(token))
                 && !isTokenExpired(token);

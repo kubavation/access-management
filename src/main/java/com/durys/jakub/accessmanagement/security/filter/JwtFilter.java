@@ -1,8 +1,12 @@
 package com.durys.jakub.accessmanagement.security.filter;
 
-import com.durys.jakub.accessmanagement.user.model.entity.User;
+import com.durys.jakub.accessmanagement.security.util.JwtSecurityUtils;
+import com.durys.jakub.accessmanagement.user.model.util.AmUserDetails;
 import com.durys.jakub.accessmanagement.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -21,6 +25,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final String BEARER = "Bearer ";
 
     private final UserService userService;
+    private final JwtSecurityUtils jwtSecurityUtils;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -31,20 +36,23 @@ public class JwtFilter extends OncePerRequestFilter {
         if (!Objects.isNull(authHeader) && authHeader.startsWith(BEARER)) {
 
             String token = authHeader.substring(7);
-            String username = "todo";
+            String username = jwtSecurityUtils.getUsername(token);
 
-            //TODO
-            //if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            User user = userService.findByUsername(username);
 
-//            if (jwtUtils.validateToken(token, userDetails)) {
-//
-//                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-//                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-//                usernamePasswordAuthenticationToken
-//                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-//                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-//            }
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                AmUserDetails userDetails = UserService.toAmUserDetails(userService.findByUsername(username));
+
+                if (jwtSecurityUtils.isTokenValid(token, userDetails)) {
+
+                    UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    usernamePasswordAuthenticationToken
+                            .setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                    SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+                }
+
+            }
+
 
         }
 
