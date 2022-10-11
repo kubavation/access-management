@@ -4,6 +4,7 @@ import com.durys.jakub.accessmanagement.authentication.model.AuthenticationReque
 import com.durys.jakub.accessmanagement.authentication.model.AuthenticationResponse;
 import com.durys.jakub.accessmanagement.security.util.JwtSecurityUtils;
 import com.durys.jakub.accessmanagement.user.exception.BadCredentialsException;
+import com.durys.jakub.accessmanagement.user.exception.UserLockedException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,6 +39,11 @@ public class AuthenticationService {
         }
 
         UserDetails user = userDetailsService.loadUserByUsername(auth.getUsername());
+
+        if (!user.isEnabled()) {
+            throw new UserLockedException(auth.getUsername());
+        }
+
         String token = jwtSecurityUtils.generateToken(user.getUsername());
 
         log.info("authentication - successful with user {}", auth.getUsername());
