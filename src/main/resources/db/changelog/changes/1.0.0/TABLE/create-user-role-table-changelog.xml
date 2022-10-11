@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet author="jdurys" id="jdurs-user-role-table-1.0">
+        <createTable tableName="AM_USER_ROLE">
+            <column name="user_id" type="integer">
+                <constraints nullable="false" />
+            </column>
+            <column name="role_name" type="varchar2(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="jdurys" id="jdurs-user-role-pk-1.0">
+        <addPrimaryKey tableName="AM_USER_ROLE"
+                       constraintName="pk_user_role"
+                       columnNames="user_id, role_name"/>
+    </changeSet>
+
+    <changeSet author="jdurys" id="jdurs-user-role-fk-1.0">
+        <addForeignKeyConstraint
+                baseTableName="AM_USER_ROLE"
+                baseColumnNames="user_id"
+                constraintName="am_user_role_fk1"
+                referencedTableName="AM_USER"
+                referencedColumnNames="id"/>
+        <addForeignKeyConstraint
+                baseTableName="AM_USER_ROLE"
+                baseColumnNames="role_name"
+                constraintName="am_user_role_fk2"
+                referencedTableName="AM_ROLE"
+                referencedColumnNames="name"/>
+    </changeSet>
+
+
+</databaseChangeLog>

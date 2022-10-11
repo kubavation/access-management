@@ -9,4 +9,5 @@
       http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.1.xsd">
     <include file="changes/1.0.0/TABLE/create-role-table-changelog.xml"  relativeToChangelogFile="true" />
     <include file="changes/1.0.0/TABLE/create-user-table-changelog.xml"  relativeToChangelogFile="true" />
+    <include file="changes/1.0.0/TABLE/create-user-role-table-changelog.xml"  relativeToChangelogFile="true" />
 </databaseChangeLog>
