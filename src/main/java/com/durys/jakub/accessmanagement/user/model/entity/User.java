@@ -29,7 +29,7 @@ public class User {
     @Column(name = "employee_id")
     private Long employeeId;
 
-    @Column(name = "is_locker")
+    @Column(name = "is_locked")
     private boolean isLocked;
 
     private String status;
