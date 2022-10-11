@@ -18,7 +18,7 @@
                <constraints nullable="false"/>
             </column>
             <column name="employee_id" type="number(10)" />
-            <column name="is_locked" type="varchar(1)" defaultValue="N" />
+            <column name="is_locked" type="varchar2(1)" defaultValue="N" />
             <column name="status" type="varchar2(1)" defaultValue="A" >
                 <constraints nullable="false" />
             </column>
