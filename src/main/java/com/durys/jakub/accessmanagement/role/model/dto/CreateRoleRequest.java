@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class RoleDTO {
+public class CreateRoleRequest {
     private String name;
     private String desc;
 }

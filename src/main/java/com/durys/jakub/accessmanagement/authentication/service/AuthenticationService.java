@@ -45,6 +45,8 @@ public class AuthenticationService {
 
         String token = jwtSecurityUtils.generateToken(user.getUsername());
 
+        System.out.println(token);
+
         log.info("authentication - successful with user {}", auth.getUsername());
 
         return new AuthenticationResponse(token);
