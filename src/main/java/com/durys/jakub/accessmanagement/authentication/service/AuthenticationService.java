@@ -47,7 +47,7 @@ public class AuthenticationService {
         String token = jwtSecurityUtils.generateToken(user.getUsername());
 
         log.info("authentication - successful with user {}", auth.getUsername());
-        
+
         return new AuthenticationResponse(token);
     }
 }

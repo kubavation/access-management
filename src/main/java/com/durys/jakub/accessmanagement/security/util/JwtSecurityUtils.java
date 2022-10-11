@@ -4,6 +4,7 @@ import com.durys.jakub.accessmanagement.user.model.util.AmUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,11 @@ import java.util.HashMap;
 import java.util.function.Function;
 
 @Service
+@RequiredArgsConstructor
 public class JwtSecurityUtils {
 
     private static final String SECRET_KEY = "am-secret-key";
+    private final JwtDateUtils jwtDateUtils;
 
 
     public String generateToken(String subject) {
@@ -27,7 +30,7 @@ public class JwtSecurityUtils {
                 .addClaims(new HashMap<>())
                 .setSubject(subject)
                 .setIssuedAt(new Date())
-                .setExpiration(JwtDateUtils.getExpirationDate(new Date()))
+                .setExpiration(jwtDateUtils.getExpirationDate(new Date()))
                 .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
     }
 
