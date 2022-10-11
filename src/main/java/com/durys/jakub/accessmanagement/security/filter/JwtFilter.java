@@ -4,6 +4,7 @@ import com.durys.jakub.accessmanagement.security.util.JwtSecurityUtils;
 import com.durys.jakub.accessmanagement.user.model.util.AmUserDetails;
 import com.durys.jakub.accessmanagement.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
@@ -19,6 +20,7 @@ import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class JwtFilter extends OncePerRequestFilter {
 
     private static final String AUTH_HEADER = "Authorization";
@@ -31,6 +33,8 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
+        log.info("start filter");
+
         final String authHeader = request.getHeader(AUTH_HEADER);
 
         if (!Objects.isNull(authHeader) && authHeader.startsWith(BEARER)) {
@@ -38,11 +42,14 @@ public class JwtFilter extends OncePerRequestFilter {
             String token = authHeader.substring(7);
             String username = jwtSecurityUtils.getUsername(token);
 
+            log.info("username {}", username);
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 AmUserDetails userDetails = UserService.toAmUserDetails(userService.findByUsername(username));
 
                 if (jwtSecurityUtils.isTokenValid(token, userDetails)) {
+
+                    log.info("token valid for user {}", username);
 
                     UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
