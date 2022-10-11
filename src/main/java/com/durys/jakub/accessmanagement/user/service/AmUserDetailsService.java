@@ -1,5 +1,6 @@
 package com.durys.jakub.accessmanagement.user.service;
 
+import com.durys.jakub.accessmanagement.user.model.util.AmUserDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +13,7 @@ public class AmUserDetailsService implements UserDetailsService {
     private final UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
+    public AmUserDetails loadUserByUsername(String username) {
         return UserService.toAmUserDetails(userService.findByUsername(username));
     }
 }

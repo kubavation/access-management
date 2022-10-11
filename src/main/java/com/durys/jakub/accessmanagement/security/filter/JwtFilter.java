@@ -2,11 +2,13 @@ package com.durys.jakub.accessmanagement.security.filter;
 
 import com.durys.jakub.accessmanagement.security.util.JwtSecurityUtils;
 import com.durys.jakub.accessmanagement.user.model.util.AmUserDetails;
+import com.durys.jakub.accessmanagement.user.service.AmUserDetailsService;
 import com.durys.jakub.accessmanagement.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -26,7 +28,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private static final String AUTH_HEADER = "Authorization";
     private static final String BEARER = "Bearer ";
 
-    private final UserService userService;
+    private final AmUserDetailsService userDetailsService;
     private final JwtSecurityUtils jwtSecurityUtils;
 
     @Override
@@ -45,7 +47,7 @@ public class JwtFilter extends OncePerRequestFilter {
             log.info("username {}", username);
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                AmUserDetails userDetails = UserService.toAmUserDetails(userService.findByUsername(username));
+                AmUserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
                 if (jwtSecurityUtils.isTokenValid(token, userDetails)) {
 

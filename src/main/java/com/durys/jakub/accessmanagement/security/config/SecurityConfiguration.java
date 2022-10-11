@@ -4,6 +4,7 @@ import com.durys.jakub.accessmanagement.security.filter.JwtFilter;
 import com.durys.jakub.accessmanagement.user.service.AmUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
-@RequiredArgsConstructor
 @EnableGlobalMethodSecurity(
     prePostEnabled = true,
     securedEnabled = true
@@ -26,8 +26,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private static final int PASSWORD_STRENGTH = 5;
     private final AmUserDetailsService amUserDetailsService;
-
     private final JwtFilter jwtFilter;
+
+    public SecurityConfiguration(@Lazy AmUserDetailsService amUserDetailsService,
+                                 @Lazy JwtFilter jwtFilter) {
+        this.amUserDetailsService = amUserDetailsService;
+        this.jwtFilter = jwtFilter;
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
