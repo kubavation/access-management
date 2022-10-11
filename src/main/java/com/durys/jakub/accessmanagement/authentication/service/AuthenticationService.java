@@ -30,8 +30,7 @@ public class AuthenticationService {
         try {
 
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(auth.getUsername(), auth.getPassword())
-            );
+                    new UsernamePasswordAuthenticationToken(auth.getUsername(), auth.getPassword()));
 
         } catch (AuthenticationException ex) {
             log.error("error in authentication", ex);

@@ -13,9 +13,11 @@ public class JwtDateUtils {
     private Integer hoursToExpire;
 
     public Date getExpirationDate(Date creationDate) {
-        return Date.from(
-                LocalDateTime.ofInstant(creationDate.toInstant(), ZoneId.systemDefault())
-                        .plusHours(hoursToExpire).toInstant(ZoneOffset.UTC));
+       return Date.from(
+                LocalDateTime
+                        .ofInstant(creationDate.toInstant(), ZoneId.systemDefault())
+                        .plusHours(hoursToExpire).atZone(ZoneId.systemDefault())
+                        .toInstant());
     }
 
 }

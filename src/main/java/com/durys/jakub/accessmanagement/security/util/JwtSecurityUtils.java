@@ -31,7 +31,8 @@ public class JwtSecurityUtils {
                 .setSubject(subject)
                 .setIssuedAt(new Date())
                 .setExpiration(jwtDateUtils.getExpirationDate(new Date()))
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY).compact();
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .compact();
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
