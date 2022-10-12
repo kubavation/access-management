@@ -9,7 +9,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Data
-public class AddRolesToUserRequest {
-    private UserDTO user;
-    private List<RoleDTO> roles;
+public class AddUsersToRoleRequest {
+    private RoleDTO role;
+    private List<UserDTO> users;
 }

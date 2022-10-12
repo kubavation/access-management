@@ -1,6 +1,6 @@
 package com.durys.jakub.accessmanagement.role.controller;
 
-import com.durys.jakub.accessmanagement.role.model.dto.CreateRoleRequest;
+import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.role.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,13 +16,13 @@ public class RoleController {
     private final RoleService roleService;
 
     @GetMapping
-    public List<CreateRoleRequest> findAll() {
+    public List<RoleDTO> findAll() {
         return roleService.findAll();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody CreateRoleRequest role) {
+    public void create(@RequestBody RoleDTO role) {
         roleService.create(role);
     }
 }
