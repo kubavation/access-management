@@ -2,6 +2,8 @@ package com.durys.jakub.accessmanagement.user_role.service;
 
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
+import com.durys.jakub.accessmanagement.role.model.entity.Role;
+import com.durys.jakub.accessmanagement.user.mapper.UserMapper;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDTO;
 import com.durys.jakub.accessmanagement.user.model.entity.User;
 import com.durys.jakub.accessmanagement.user_role.model.dto.AddRolesToUserRequest;
@@ -37,5 +39,20 @@ public class UserRoleService {
 
     }
 
-  
+    @Transactional
+    public void addUsersToRole(List<UserDTO> users, Role role) {
+
+        userRoleRepository.deleteAllInBatch(
+                userRoleRepository.findAllByRoleName(role.getName()));
+
+        try {
+            users.stream()
+                    .distinct()
+                    .map(UserMapper::toEntity)
+                    .forEach(user -> userRoleRepository.save(new UserRole(user, role)));
+        } catch (Exception ex) {
+            throw new RuntimeException("User does not exists");
+        }
+
+    }
 }
