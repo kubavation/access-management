@@ -1,5 +1,6 @@
 package com.durys.jakub.accessmanagement.user.service;
 
+import com.durys.jakub.accessmanagement.shared.exception.EntityNotFoundException;
 import com.durys.jakub.accessmanagement.user.exception.UserNotFoundException;
 import com.durys.jakub.accessmanagement.user.model.dto.CreateUserRequest;
 import com.durys.jakub.accessmanagement.user.model.entity.User;
@@ -24,6 +25,11 @@ public class UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException(username));
+    }
+
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(User.class, id));
     }
 
 
