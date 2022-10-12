@@ -4,6 +4,7 @@ import com.durys.jakub.accessmanagement.role.model.entity.Role;
 import com.durys.jakub.accessmanagement.user.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
@@ -13,6 +14,8 @@ import java.io.Serializable;
 
 @Embeddable
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserRoleId implements Serializable {
 
     @OneToOne
