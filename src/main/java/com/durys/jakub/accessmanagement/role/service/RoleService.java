@@ -23,6 +23,11 @@ public class RoleService {
         return toDTO(roleRepository.findAll());
     }
 
+    public Role findByName(String name) {
+        return roleRepository.findByName(name)
+                .orElseThrow(RuntimeException::new); //todo
+    }
+
     public void create(RoleDTO roleDTO) {
 
         validateRole(roleDTO);
