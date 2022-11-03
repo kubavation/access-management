@@ -38,7 +38,6 @@ public class UserService {
                 .orElseThrow(() -> new EntityNotFoundException(User.class, id));
     }
 
-
     public void create(CreateUserRequest request) {
 
         log.info("creating user {}", request);
@@ -54,8 +53,6 @@ public class UserService {
         userRepository.save(user);
     }
 
-
-
     public static AmUserDetails toAmUserDetails(User user) {
         return AmUserDetails.builder()
                 .username(user.getUsername())
@@ -64,5 +61,8 @@ public class UserService {
                 .build();
     }
 
+    public boolean isUsernameAlreadyExists(String username) {
+        return userRepository.findByUsername(username).isPresent();
+    }
 
 }
