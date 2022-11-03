@@ -40,7 +40,7 @@ public class UserController {
         userRoleService.addRolesToUser(request.getRoles(), user);
     }
 
-    @GetMapping("/{username/exists")
+    @GetMapping("/{username}/exists")
     public boolean isUsernameAlreadyExists(@PathVariable String username) {
         return userService.isUsernameAlreadyExists(username);
     }
