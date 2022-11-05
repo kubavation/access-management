@@ -4,6 +4,7 @@ import com.durys.jakub.accessmanagement.user.mapper.UserMapper;
 import com.durys.jakub.accessmanagement.user.model.dto.CreateUserRequest;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDTO;
 import com.durys.jakub.accessmanagement.user.model.entity.User;
+import com.durys.jakub.accessmanagement.user.service.UserDetailsServiceFacade;
 import com.durys.jakub.accessmanagement.user.service.UserService;
 import com.durys.jakub.accessmanagement.user_role.model.dto.AddRolesToUserRequest;
 import com.durys.jakub.accessmanagement.user_role.service.UserRoleService;
@@ -21,6 +22,7 @@ public class UserController {
 
     private final UserService userService;
     private final UserRoleService userRoleService;
+    private UserDetailsServiceFacade userDetailsServiceFacade;
 
     @GetMapping
     public List<UserDTO> getUsers() {
