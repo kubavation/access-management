@@ -22,8 +22,13 @@ public class User {
     @ToString.Exclude
     private String password;
 
-    @Column(name = "employee_id")
-    private Long employeeId;
+    private String email;
+
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
 
     @Column(name = "is_locked")
     private boolean isLocked;
