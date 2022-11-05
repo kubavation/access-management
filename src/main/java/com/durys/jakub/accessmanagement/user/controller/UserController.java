@@ -33,7 +33,7 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createUser(CreateUserRequest createUserRequest) {
+    public void createUser(@RequestBody CreateUserRequest createUserRequest) {
         userDetailsServiceFacade.createUser(createUserRequest);
     }
 

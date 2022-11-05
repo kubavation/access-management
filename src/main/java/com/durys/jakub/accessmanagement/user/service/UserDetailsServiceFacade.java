@@ -23,7 +23,7 @@ public class UserDetailsServiceFacade {
     @Transactional
     public void createUser(CreateUserRequest createUserRequest) {
         log.info("START | request {}", createUserRequest);
-        
+
         User user = userService.create(createUserRequest);
         addRolesToUser(createUserRequest.getRoles(), user);
     }
