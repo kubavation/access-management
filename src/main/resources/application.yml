@@ -2,7 +2,7 @@ spring:
   jpa:
     show-sql: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/company-management
+    url: jdbc:postgresql://localhost:5432/access-management
     username: postgres
     password: root
   application:
