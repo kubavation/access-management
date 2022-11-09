@@ -19,6 +19,7 @@ public class Role {
 
     @Id
     private String name;
+    @Column(name = "description")
     private String desc;
 
     @Column(name = "CREATED_AT")
