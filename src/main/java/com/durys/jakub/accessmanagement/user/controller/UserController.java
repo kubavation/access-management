@@ -2,6 +2,7 @@ package com.durys.jakub.accessmanagement.user.controller;
 
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.user.mapper.UserMapper;
+import com.durys.jakub.accessmanagement.user.model.dto.UserDetailsDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDTO;
 import com.durys.jakub.accessmanagement.user.service.UserDetailsServiceFacade;
@@ -25,6 +26,11 @@ public class UserController {
     @GetMapping
     public List<UserDTO> getUsers() {
         return UserMapper.toDTO(userService.getUsers());
+    }
+
+    @GetMapping("/{id}/details")
+    public UserDetailsDTO getUserDetails(@PathVariable Long id) {
+        return UserMapper.toDetailsDTO(userService.findById(id));
     }
 
     @GetMapping("/{username}/exists")
