@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, String> {
 
-    @Query("from Role order by name")
+    @Query("from Role r where r.status = 'A' order by r.name")
     List<Role> findAll();
     Optional<Role> findByName(String name);
 }
