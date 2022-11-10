@@ -1,5 +1,6 @@
 package com.durys.jakub.accessmanagement.role.controller;
 
+import com.durys.jakub.accessmanagement.role.exception.RoleWithNameAlreadyExistsException;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.role.model.entity.Role;
 import com.durys.jakub.accessmanagement.role.service.RoleService;

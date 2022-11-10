@@ -22,6 +22,11 @@ public class UserRoleService {
 
     private final UserRoleRepository userRoleRepository;
 
+
+    public List<UserRole> getUserRoles(User user) {
+        return userRoleRepository.findAllByUserId(user.getId());
+    }
+
     @Transactional
     public void addRolesToUser(List<RoleDTO> roles, User user) {
 

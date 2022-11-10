@@ -1,5 +1,6 @@
 package com.durys.jakub.accessmanagement.user.controller;
 
+import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.user.mapper.UserMapper;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDTO;
@@ -41,6 +42,11 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addRoles(@RequestBody AddRolesToUserRequest request) {
         userDetailsServiceFacade.addRolesToUser(request);
+    }
+
+    @GetMapping("/{id}/roles")
+    public List<RoleDTO> getUserRoles(@PathVariable Long id) {
+        return userDetailsServiceFacade.getUserRoles(id);
     }
 
 

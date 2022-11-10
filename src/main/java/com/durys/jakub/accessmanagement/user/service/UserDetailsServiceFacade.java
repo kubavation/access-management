@@ -1,5 +1,6 @@
 package com.durys.jakub.accessmanagement.user.service;
 
+import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import com.durys.jakub.accessmanagement.user.model.entity.User;
@@ -37,4 +38,13 @@ public class UserDetailsServiceFacade {
         User user = userService.findById(request.getUser().getId());
         addRolesToUser(request.getRoles(), user);
     }
+
+    public List<RoleDTO> getUserRoles(Long userId) {
+        User user = userService.findById(userId);
+        return RoleMapper.toDTO(userRoleService.getUserRoles(user)
+                .stream()
+                .map(userRole -> userRole.getId().getRole())
+                .toList());
+    }
+
 }

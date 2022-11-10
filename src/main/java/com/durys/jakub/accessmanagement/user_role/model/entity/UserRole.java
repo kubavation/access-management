@@ -22,7 +22,6 @@ public class UserRole {
     @Id
     private UserRoleId id;
 
-
     public UserRole(User user, Role role) {
         this.id = new UserRoleId(user, role);
     }
