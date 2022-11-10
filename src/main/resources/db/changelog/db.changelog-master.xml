@@ -11,4 +11,5 @@
     <include file="changes/1.0.0/TABLE/create-user-table-changelog.xml"  relativeToChangelogFile="true" />
     <include file="changes/1.0.0/TABLE/create-user-role-table-changelog.xml"  relativeToChangelogFile="true" />
     <include file="changes/1.0.0/TABLE/alter-role-table-changelog.xml"  relativeToChangelogFile="true" />
+    <include file="changes/1.0.0/TABLE/alter-role-table-2-changelog.xml"  relativeToChangelogFile="true" />
 </databaseChangeLog>
