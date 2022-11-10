@@ -32,6 +32,12 @@ public class RoleController {
         roleService.create(role);
     }
 
+    @PutMapping("/{name}")
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestParam String name, @RequestBody RoleDTO role) {
+        roleService.update(name, role);
+    }
+
     @PostMapping("/{name}/roles")
     @ResponseStatus(HttpStatus.CREATED)
     public void addRoles(@RequestBody AddUsersToRoleRequest request) {

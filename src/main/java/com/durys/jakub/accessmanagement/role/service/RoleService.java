@@ -4,9 +4,11 @@ import com.durys.jakub.accessmanagement.role.exception.RoleWithNameAlreadyExists
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.role.model.entity.Role;
 import com.durys.jakub.accessmanagement.role.repository.RoleRepository;
+import com.durys.jakub.accessmanagement.shared.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class RoleService {
 
     public Role findByName(String name) {
         return roleRepository.findByName(name)
-                .orElseThrow(RuntimeException::new); //todo
+                .orElseThrow(() -> new EntityNotFoundException(Role.class, name));
     }
 
     public void create(RoleDTO roleDTO) {
@@ -43,5 +45,11 @@ public class RoleService {
             throw new RoleWithNameAlreadyExistsException(roleDTO.getName());
         }
 
+    }
+
+    public void update(String name, RoleDTO role) {
+       Role entity = findByName(name);
+       entity.setDesc(role.getDesc());
+       roleRepository.save(entity);
     }
 }
