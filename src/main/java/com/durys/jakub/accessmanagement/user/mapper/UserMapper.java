@@ -16,15 +16,16 @@ public class UserMapper {
         return User.builder()
                 .id(dto.getId())
                 .username(dto.getUsername())
+                .email(dto.getEmail())
                 .build();
     }
 
     public static UserDTO toDTO(User entity) {
-        return new UserDTO(entity.getId(), entity.getUsername());
+        return new UserDTO(entity.getId(), entity.getUsername(), entity.getEmail());
     }
 
     public static List<UserDTO> toDTO(List<User> entities) {
-        return entities.stream().map(UserMapper::toDTO).collect(Collectors.toList());
+        return entities.stream().map(UserMapper::toDTO).toList();
     }
 
 }
