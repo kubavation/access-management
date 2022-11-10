@@ -34,13 +34,13 @@ public class RoleController {
 
     @PutMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@RequestParam String name, @RequestBody RoleDTO role) {
+    public void update(@PathVariable String name, @RequestBody RoleDTO role) {
         roleService.update(name, role);
     }
 
     @DeleteMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@RequestParam String name) {
+    public void delete(@PathVariable String name) {
         roleService.delete(name);
     }
 
