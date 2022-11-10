@@ -38,6 +38,12 @@ public class RoleController {
         roleService.update(name, role);
     }
 
+    @DeleteMapping("/{name}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@RequestParam String name) {
+        roleService.delete(name);
+    }
+
     @PostMapping("/{name}/roles")
     @ResponseStatus(HttpStatus.CREATED)
     public void addRoles(@RequestBody AddUsersToRoleRequest request) {

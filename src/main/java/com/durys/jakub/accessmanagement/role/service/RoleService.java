@@ -30,13 +30,13 @@ public class RoleService {
                 .orElseThrow(() -> new EntityNotFoundException(Role.class, name));
     }
 
+    @Transactional
     public void create(RoleDTO roleDTO) {
 
         validateRole(roleDTO);
 
         Role entity = toEntity(roleDTO);
         entity.setCreatedAt(LocalDateTime.now());
-        roleRepository.save(entity);
     }
 
     public void validateRole(RoleDTO roleDTO) {
@@ -46,10 +46,15 @@ public class RoleService {
         }
 
     }
-
+    @Transactional
     public void update(String name, RoleDTO role) {
        Role entity = findByName(name);
        entity.setDesc(role.getDesc());
-       roleRepository.save(entity);
+    }
+
+    @Transactional
+    public void delete(String name) {
+        Role entity = findByName(name);
+        entity.setStatus("H");
     }
 }
