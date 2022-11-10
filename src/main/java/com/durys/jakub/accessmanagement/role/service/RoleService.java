@@ -30,13 +30,14 @@ public class RoleService {
                 .orElseThrow(() -> new EntityNotFoundException(Role.class, name));
     }
 
-    @Transactional
     public void create(RoleDTO roleDTO) {
 
         validateRole(roleDTO);
 
         Role entity = toEntity(roleDTO);
         entity.setCreatedAt(LocalDateTime.now());
+        entity.setStatus("A");
+        roleRepository.save(entity);
     }
 
     public void validateRole(RoleDTO roleDTO) {
