@@ -20,10 +20,8 @@ jwt:
   hoursToExpire: 1
 keycloak:
   realm: am-realm
-  auth-server-url: http://localhost:8080/auth
+  auth-server-url: http://localhost:8080
   ssl-required: external
   resource: access-management
   credentials:
-    secret: secret
-  use-resource-role-mappings: true
-  bearer-only: true
+    secret: gkPAebLYwgQMIDrLX5uJc324R8KU4ZOt
