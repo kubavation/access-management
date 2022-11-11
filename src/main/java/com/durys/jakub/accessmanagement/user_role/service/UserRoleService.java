@@ -6,15 +6,15 @@ import com.durys.jakub.accessmanagement.role.model.entity.Role;
 import com.durys.jakub.accessmanagement.user.mapper.UserMapper;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDTO;
 import com.durys.jakub.accessmanagement.user.model.entity.User;
-import com.durys.jakub.accessmanagement.user_role.model.dto.AddRolesToUserRequest;
 import com.durys.jakub.accessmanagement.user_role.model.entity.UserRole;
 import com.durys.jakub.accessmanagement.user_role.repository.UserRoleRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +32,10 @@ public class UserRoleService {
 
         userRoleRepository.deleteAllInBatch(
                 userRoleRepository.findAllByUserId(user.getId()));
+
+        if (CollectionUtils.isEmpty(roles)) {
+            return;
+        }
 
         try {
             roles.stream()
