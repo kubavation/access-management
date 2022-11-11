@@ -11,10 +11,19 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.xml
 server:
-  port: 0
+  port: 65025
 eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8777/eureka/
 jwt:
   hoursToExpire: 1
+keycloak:
+  realm: am-realm
+  auth-server-url: http://localhost:8080/auth
+  ssl-required: external
+  resource: access-management
+  credentials:
+    secret: secret
+  use-resource-role-mappings: true
+  bearer-only: true
