@@ -24,4 +24,4 @@ keycloak:
   ssl-required: external
   resource: access-management
   credentials:
-    secret: gkPAebLYwgQMIDrLX5uJc324R8KU4ZOt
+    secret: zRBzHE8tLRvcHakGHsqHwcacxFYldYFf
