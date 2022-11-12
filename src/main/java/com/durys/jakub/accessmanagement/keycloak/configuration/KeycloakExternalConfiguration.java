@@ -16,9 +16,10 @@ class KeycloakExternalConfiguration {
     private String keycloakRealm;
 
 
-    @Bean
-    public WebClient.Builder keycloakClient() {
+    @Bean(name = "keycloakClient")
+    public WebClient keycloakClient() {
        return WebClient.builder()
-               .baseUrl(String.format("%s/admin/realms/%s", keycloakServer, keycloakRealm));
+               .baseUrl(String.format("%s/admin/realms/%s", keycloakServer, keycloakRealm))
+               .build();
     }
 }
