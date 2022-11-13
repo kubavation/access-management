@@ -10,6 +10,11 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.xml
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      label: master
 server:
   port: 65025
 eureka:
@@ -25,3 +30,6 @@ keycloak:
   resource: access-management
   credentials:
     secret: zRBzHE8tLRvcHakGHsqHwcacxFYldYFf
+#external-user:
+#  username: admin
+#  password: admin

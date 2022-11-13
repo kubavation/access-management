@@ -1,6 +1,7 @@
 package com.durys.jakub.accessmanagement.keycloak.configuration;
 
 
+import lombok.NoArgsConstructor;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
@@ -25,6 +26,11 @@ class KeycloakExternalConfiguration {
     @Value("${keycloak.credentials.secret}")
     private String secret;
 
+    @Value("${external-user.username}")
+    private String externalLogin;
+
+    @Value("${external-user.password}")
+    private String externalPassword;
 
 
     @Bean
@@ -33,7 +39,7 @@ class KeycloakExternalConfiguration {
                 .serverUrl(keycloakServer)
                 .grantType(OAuth2Constants.PASSWORD)
                 .realm(keycloakRealm).clientId(clientId)
-                .username("admin").password("admin")
+                .username(externalLogin).password(externalPassword)
                 .clientSecret(secret)
                 .resteasyClient(new ResteasyClientBuilder().connectionPoolSize(10).build())
                 .build();
