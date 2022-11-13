@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Service
 public class KeycloakClientApi {
 
     private final KeycloakClientService keycloakClientService;
@@ -25,6 +24,10 @@ public class KeycloakClientApi {
 
     public UserRepresentation getUser(String id) {
         return keycloakClientService.getUser(id);
+    }
+
+    public UserRepresentation getUserByUsername(String username) {
+        return keycloakClientService.getUserByUsername(username);
     }
 
     public List<RoleRepresentation> getRoles() {
