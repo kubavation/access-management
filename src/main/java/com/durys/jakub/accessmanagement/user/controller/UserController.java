@@ -7,7 +7,6 @@ import com.durys.jakub.accessmanagement.user.mapper.UserMapper;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDetailsDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDTO;
-import com.durys.jakub.accessmanagement.user.service.UserDetailsServiceFacade;
 import com.durys.jakub.accessmanagement.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,8 +20,6 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final UserDetailsServiceFacade userDetailsServiceFacade;
-
     private final KeycloakClientApi keycloakClientApi;
 
 
@@ -38,19 +35,14 @@ public class UserController {
 
     @GetMapping("/{username}/exists")
     public boolean isUsernameAlreadyExists(@PathVariable String username) {
-        return userService.isUsernameAlreadyExists(username);
+       // return userService.isUsernameAlreadyExists(username);
+        return false;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody CreateUserRequest createUserRequest) {
         keycloakClientApi.createUser(createUserRequest);
-    }
-
-    @PostMapping("/{id}/roles")
-    @ResponseStatus(HttpStatus.CREATED)
-    public void addRoles(@RequestBody Object request) {
-        userDetailsServiceFacade.addRolesToUser(request);
     }
 
     @GetMapping("/{id}/roles")
