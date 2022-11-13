@@ -34,7 +34,13 @@ public class KeycloakClientApi {
         keycloakClientService.updateRole(roleName, roleDTO);
     }
 
+    public void deleteRole(String roleName) {
+        keycloakClientService.deleteRole(roleName);
+    }
+
     public List<RoleRepresentation> getUserRoles(String id) {
         return keycloakClientService.getUserRoles(id);
     }
+
+
 }

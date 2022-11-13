@@ -50,4 +50,8 @@ class KeycloakClientService {
                 = new RoleRepresentation(roleName, roleDTO.getDescription(), false);
         realmResource.roles().get(roleName).update(roleRepresentation);
     }
+
+    public void deleteRole(String roleName) {
+        realmResource.roles().get(roleName).remove();
+    }
 }

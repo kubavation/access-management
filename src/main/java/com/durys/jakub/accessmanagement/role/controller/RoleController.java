@@ -47,7 +47,7 @@ public class RoleController {
     @DeleteMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable String name) {
-        roleService.delete(name);
+        keycloakClientApi.deleteRole(name);
     }
 
     @PostMapping("/{name}/roles")
