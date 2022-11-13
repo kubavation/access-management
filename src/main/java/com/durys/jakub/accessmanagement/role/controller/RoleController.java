@@ -1,13 +1,9 @@
 package com.durys.jakub.accessmanagement.role.controller;
 
-import com.durys.jakub.accessmanagement.role.exception.RoleWithNameAlreadyExistsException;
+import com.durys.jakub.accessmanagement.keycloak.KeycloakClientApi;
+import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
+import com.durys.jakub.accessmanagement.role.model.dto.AddRolesToUserRequest;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
-import com.durys.jakub.accessmanagement.role.model.entity.Role;
-import com.durys.jakub.accessmanagement.role.service.RoleService;
-import com.durys.jakub.accessmanagement.user.model.entity.User;
-import com.durys.jakub.accessmanagement.user_role.model.dto.AddRolesToUserRequest;
-import com.durys.jakub.accessmanagement.user_role.model.dto.AddUsersToRoleRequest;
-import com.durys.jakub.accessmanagement.user_role.service.UserRoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,37 +15,36 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoleController {
 
-    private final RoleService roleService;
-    private final UserRoleService userRoleService;
+    private final KeycloakClientApi keycloakClientApi;
+
 
     @GetMapping
     public List<RoleDTO> findAll() {
-        return roleService.findAll();
+        return RoleMapper.toDTO(keycloakClientApi.getRoles());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody RoleDTO role) {
-        roleService.create(role);
+        keycloakClientApi.createRole(role);
     }
 
     @PutMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable String name, @RequestBody RoleDTO role) {
-        roleService.update(name, role);
+        keycloakClientApi.updateRole(name, role);
     }
 
     @DeleteMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable String name) {
-        roleService.delete(name);
+        keycloakClientApi.deleteRole(name);
     }
 
     @PostMapping("/{name}/roles")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addRoles(@RequestBody AddUsersToRoleRequest request) {
-        Role role = roleService.findByName(request.getRole().getName());
-        userRoleService.addUsersToRole(request.getUsers(), role);
+    public void addRoles(@RequestBody AddRolesToUserRequest request) {
+        keycloakClientApi.addRolesToUser(request.getUserId(), request.getRoles());
     }
 
 }

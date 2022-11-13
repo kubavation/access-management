@@ -10,12 +10,17 @@ spring:
   liquibase:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.xml
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      label: master
 server:
   port: 65025
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8777/eureka/
+      defaultZone: http://eureka:password@localhost:8777/eureka/
 jwt:
   hoursToExpire: 1
 keycloak:
@@ -25,3 +30,6 @@ keycloak:
   resource: access-management
   credentials:
     secret: zRBzHE8tLRvcHakGHsqHwcacxFYldYFf
+#external-user:
+#  username: admin
+#  password: admin
