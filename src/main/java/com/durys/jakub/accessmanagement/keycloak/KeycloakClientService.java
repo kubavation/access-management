@@ -44,4 +44,10 @@ class KeycloakClientService {
                 = new RoleRepresentation(roleDTO.getName(), roleDTO.getDescription(), false);
         realmResource.roles().create(roleRepresentation);
     }
+
+    public void updateRole(String roleName, RoleDTO roleDTO) {
+        RoleRepresentation roleRepresentation
+                = new RoleRepresentation(roleName, roleDTO.getDescription(), false);
+        realmResource.roles().get(roleName).update(roleRepresentation);
+    }
 }

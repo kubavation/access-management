@@ -30,6 +30,10 @@ public class KeycloakClientApi {
         keycloakClientService.createRole(roleDTO);
     }
 
+    public void updateRole(String roleName, RoleDTO roleDTO) {
+        keycloakClientService.updateRole(roleName, roleDTO);
+    }
+
     public List<RoleRepresentation> getUserRoles(String id) {
         return keycloakClientService.getUserRoles(id);
     }

@@ -35,13 +35,13 @@ public class RoleController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody RoleDTO role) {
-        roleService.create(role);
+        keycloakClientApi.createRole(role);
     }
 
     @PutMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable String name, @RequestBody RoleDTO role) {
-        roleService.update(name, role);
+        keycloakClientApi.updateRole(name, role);
     }
 
     @DeleteMapping("/{name}")
