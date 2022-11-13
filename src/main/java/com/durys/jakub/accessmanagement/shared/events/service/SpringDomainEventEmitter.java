@@ -10,7 +10,7 @@ public class SpringDomainEventEmitter implements DomainEventEmitter {
     private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
-    public <T extends DomainEvent> void emit(T t) {
-        applicationEventPublisher.publishEvent(t);
+    public <T extends DomainEvent> void emit(T event) {
+        applicationEventPublisher.publishEvent(event);
     }
 }

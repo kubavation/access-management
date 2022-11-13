@@ -8,10 +8,9 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 class EventProviderConfiguration {
-
-
+    
     @Bean
-    DomainEventEmitter eventEmitter(ApplicationEventPublisher applicationEventPublisher) {
-        return new SpringDomainEventEmitter(applicationEventPublisher);
+    DomainEventEmitter eventEmitter(ApplicationEventPublisher eventPublisher) {
+        return new SpringDomainEventEmitter(eventPublisher);
     }
 }
