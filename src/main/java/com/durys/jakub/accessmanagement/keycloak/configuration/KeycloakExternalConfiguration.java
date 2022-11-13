@@ -13,25 +13,31 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 class KeycloakExternalConfiguration {
+    
+    private final String keycloakServer;
 
-    @Value("${keycloak.auth-server-url}")
-    private String keycloakServer;
+    private final String keycloakRealm;
 
-    @Value("${keycloak.realm}")
-    private String keycloakRealm;
+    private final String clientId;
 
-    @Value("${keycloak.resource}")
-    private String clientId;
+    private final String secret;
 
-    @Value("${keycloak.credentials.secret}")
-    private String secret;
+    private final String externalLogin;
+    private final String externalPassword;
 
-    @Value("${external-user.username}")
-    private String externalLogin;
-
-    @Value("${external-user.password}")
-    private String externalPassword;
-
+    public KeycloakExternalConfiguration(@Value("${keycloak.auth-server-url}") String keycloakServer,
+                                         @Value("${keycloak.realm}") String keycloakRealm,
+                                         @Value("${keycloak.resource}")String clientId,
+                                         @Value("${keycloak.credentials.secret}") String secret,
+                                         @Value("${external-user.username}") String externalLogin,
+                                         @Value("${external-user.password}") String externalPassword) {
+        this.keycloakServer = keycloakServer;
+        this.keycloakRealm = keycloakRealm;
+        this.clientId = clientId;
+        this.secret = secret;
+        this.externalLogin = externalLogin;
+        this.externalPassword = externalPassword;
+    }
 
     @Bean
     Keycloak keycloakClient() {
