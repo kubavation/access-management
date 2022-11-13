@@ -1,6 +1,7 @@
 package com.durys.jakub.accessmanagement.user.controller;
 
 import com.durys.jakub.accessmanagement.keycloak.KeycloakClientApi;
+import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.user.mapper.UserMapper;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDetailsDTO;
@@ -33,8 +34,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}/details")
-    public UserDetailsDTO getUserDetails(@PathVariable Long id) {
-        return UserMapper.toDetailsDTO(userService.findById(id));
+    public UserDetailsDTO getUserDetails(@PathVariable String id) {
+        return UserMapper.toDetailsDTO(keycloakClientApi.getUser(id));
     }
 
     @GetMapping("/{username}/exists")
@@ -55,8 +56,11 @@ public class UserController {
     }
 
     @GetMapping("/{id}/roles")
-    public List<RoleDTO> getUserRoles(@PathVariable Long id) {
-        return userDetailsServiceFacade.getUserRoles(id);
+    public List<RoleDTO> getUserRoles(@PathVariable String id) {
+        return keycloakClientApi.getUserRoles(id)
+                .stream()
+                .map(RoleMapper::toDTO)
+                .toList();
     }
 
 

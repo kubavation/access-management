@@ -7,6 +7,9 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.keycloak.representations.idm.UserRepresentation;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,14 +26,16 @@ public class UserMapper {
     }
 
 
-    public static UserDetailsDTO toDetailsDTO(User entity) {
+    public static UserDetailsDTO toDetailsDTO(UserRepresentation user) {
+
         return UserDetailsDTO.builder()
-                .username(entity.getUsername())
-                .email(entity.getEmail())
-                .firstName(entity.getFirstName())
-                .lastName(entity.getLastName())
-                .createdAt(entity.getCreatedAt())
-                .createdBy(entity.getCreatedBy())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .createdAt(LocalDateTime
+                        .ofInstant(
+                                Instant.ofEpochMilli(user.getCreatedTimestamp()), ZoneId.systemDefault()))
                 .build();
     }
 
