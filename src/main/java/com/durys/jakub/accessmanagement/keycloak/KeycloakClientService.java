@@ -34,4 +34,8 @@ class KeycloakClientService {
                 .stream()
                 .toList();
     }
+
+    public List<RoleRepresentation> getRoles() {
+        return realmResource.roles().list();
+    }
 }

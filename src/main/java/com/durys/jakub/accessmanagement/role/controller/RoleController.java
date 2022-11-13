@@ -1,6 +1,8 @@
 package com.durys.jakub.accessmanagement.role.controller;
 
+import com.durys.jakub.accessmanagement.keycloak.KeycloakClientApi;
 import com.durys.jakub.accessmanagement.role.exception.RoleWithNameAlreadyExistsException;
+import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.role.model.entity.Role;
 import com.durys.jakub.accessmanagement.role.service.RoleService;
@@ -22,9 +24,12 @@ public class RoleController {
     private final RoleService roleService;
     private final UserRoleService userRoleService;
 
+    private final KeycloakClientApi keycloakClientApi;
+
+
     @GetMapping
     public List<RoleDTO> findAll() {
-        return roleService.findAll();
+        return RoleMapper.toDTO(keycloakClientApi.getRoles());
     }
 
     @PostMapping

@@ -24,8 +24,8 @@ public class RoleMapper {
         return new RoleDTO(role.getName(), role.getDescription());
     }
 
-    public static List<RoleDTO> toDTO(List<Role> entities) {
-        return entities.stream()
+    public static List<RoleDTO> toDTO(List<RoleRepresentation> roles) {
+        return roles.stream()
                 .map(RoleMapper::toDTO)
                 .toList();
     }
