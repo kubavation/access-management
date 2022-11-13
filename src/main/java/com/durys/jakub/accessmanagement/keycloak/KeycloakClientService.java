@@ -8,6 +8,7 @@ import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +27,7 @@ class KeycloakClientService {
                 .map(UserResource::toRepresentation)
                 .orElseThrow(() -> new RuntimeException("user not found"));
     }
+
 
     public UserRepresentation getUserByUsername(String username) {
         return realmResource.users().search(username)
@@ -67,6 +69,8 @@ class KeycloakClientService {
         realmResource.users().get(userId).update(userRepresentation);
     }
 
+
+    @Transactional
     public void createUser(CreateUserRequest createUserRequest) {
 
         UserRepresentation userRepresentation = new UserRepresentation();
@@ -79,6 +83,7 @@ class KeycloakClientService {
         userRepresentation.setEnabled(true);
 
         realmResource.users().create(userRepresentation);
+        System.out.println("created");
     }
 
 }
