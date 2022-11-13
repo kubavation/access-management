@@ -1,5 +1,6 @@
 package com.durys.jakub.accessmanagement.user.controller;
 
+import com.durys.jakub.accessmanagement.keycloak.KeycloakClientApi;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.user.mapper.UserMapper;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDetailsDTO;
@@ -23,9 +24,12 @@ public class UserController {
     private final UserService userService;
     private final UserDetailsServiceFacade userDetailsServiceFacade;
 
+    private final KeycloakClientApi keycloakClientApi;
+
+
     @GetMapping
     public List<UserDTO> getUsers() {
-        return UserMapper.toDTO(userService.getUsers());
+        return UserMapper.toDTO(keycloakClientApi.getUsers());
     }
 
     @GetMapping("/{id}/details")

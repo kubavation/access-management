@@ -5,6 +5,7 @@ import com.durys.jakub.accessmanagement.user.model.dto.UserDetailsDTO;
 import com.durys.jakub.accessmanagement.user.model.entity.User;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.keycloak.representations.idm.UserRepresentation;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,15 +16,12 @@ public class UserMapper {
 
     public static User toEntity(UserDTO dto) {
         return User.builder()
-                .id(dto.getId())
+                //.id(dto.getId())
                 .username(dto.getUsername())
                 .email(dto.getEmail())
                 .build();
     }
 
-    public static UserDTO toDTO(User entity) {
-        return new UserDTO(entity.getId(), entity.getUsername(), entity.getEmail());
-    }
 
     public static UserDetailsDTO toDetailsDTO(User entity) {
         return UserDetailsDTO.builder()
@@ -36,8 +34,12 @@ public class UserMapper {
                 .build();
     }
 
-    public static List<UserDTO> toDTO(List<User> entities) {
+    public static List<UserDTO> toDTO(List<UserRepresentation> entities) {
         return entities.stream().map(UserMapper::toDTO).toList();
+    }
+
+    public static UserDTO toDTO(UserRepresentation user) {
+        return new UserDTO(user.getId(), user.getUsername(), user.getEmail());
     }
 
 }
