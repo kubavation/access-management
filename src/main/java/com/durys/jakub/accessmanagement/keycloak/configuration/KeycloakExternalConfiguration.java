@@ -5,10 +5,10 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
 import org.keycloak.admin.client.KeycloakBuilder;
+import org.keycloak.admin.client.resource.RealmResource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 class KeycloakExternalConfiguration {
@@ -27,7 +27,7 @@ class KeycloakExternalConfiguration {
 
 
 
-    @Bean(name = "keycloakClient")
+    @Bean
     Keycloak keycloakClient() {
         return KeycloakBuilder.builder()
                 .serverUrl(keycloakServer)
@@ -38,4 +38,10 @@ class KeycloakExternalConfiguration {
                 .resteasyClient(new ResteasyClientBuilder().connectionPoolSize(10).build())
                 .build();
     }
+
+    @Bean
+    RealmResource realmResource(Keycloak keycloakClient) {
+        return keycloakClient.realm(keycloakRealm);
+    }
+
 }
