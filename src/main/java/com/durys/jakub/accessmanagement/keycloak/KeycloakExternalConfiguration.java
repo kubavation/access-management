@@ -1,6 +1,7 @@
-package com.durys.jakub.accessmanagement.keycloak.configuration;
+package com.durys.jakub.accessmanagement.keycloak;
 
 
+import com.durys.jakub.accessmanagement.keycloak.KeycloakClientApi;
 import lombok.NoArgsConstructor;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.OAuth2Constants;
@@ -13,15 +14,11 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 class KeycloakExternalConfiguration {
-    
+
     private final String keycloakServer;
-
     private final String keycloakRealm;
-
     private final String clientId;
-
     private final String secret;
-
     private final String externalLogin;
     private final String externalPassword;
 
@@ -39,7 +36,6 @@ class KeycloakExternalConfiguration {
         this.externalPassword = externalPassword;
     }
 
-    @Bean
     Keycloak keycloakClient() {
         return KeycloakBuilder.builder()
                 .serverUrl(keycloakServer)
@@ -51,9 +47,18 @@ class KeycloakExternalConfiguration {
                 .build();
     }
 
+
+    RealmResource realmResource() {
+        return keycloakClient().realm(keycloakRealm);
+    }
+
+    KeycloakClientService keycloakClientService() {
+        return new KeycloakClientService(realmResource());
+    }
+
     @Bean
-    RealmResource realmResource(Keycloak keycloakClient) {
-        return keycloakClient.realm(keycloakRealm);
+    KeycloakClientApi keycloakClientApi() {
+        return new KeycloakClientApi(keycloakClientService());
     }
 
 }

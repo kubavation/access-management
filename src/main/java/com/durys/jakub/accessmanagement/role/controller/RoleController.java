@@ -17,7 +17,6 @@ public class RoleController {
 
     private final KeycloakClientApi keycloakClientApi;
 
-
     @GetMapping
     public List<RoleDTO> findAll() {
         return RoleMapper.toDTO(keycloakClientApi.getRoles());
