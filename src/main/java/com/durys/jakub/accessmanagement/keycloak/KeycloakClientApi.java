@@ -1,6 +1,7 @@
 package com.durys.jakub.accessmanagement.keycloak;
 
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
+import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -16,6 +17,10 @@ public class KeycloakClientApi {
 
     public List<UserRepresentation> getUsers() {
         return keycloakClientService.getUsers();
+    }
+
+    public void createUser(CreateUserRequest request) {
+        keycloakClientService.createUser(request);
     }
 
     public UserRepresentation getUser(String id) {

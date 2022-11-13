@@ -1,6 +1,7 @@
 package com.durys.jakub.accessmanagement.keycloak;
 
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
+import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UserResource;
@@ -62,4 +63,19 @@ class KeycloakClientService {
                 roles.stream().map(RoleDTO::getName).toList());
         realmResource.users().get(userId).update(userRepresentation);
     }
+
+    public void createUser(CreateUserRequest createUserRequest) {
+
+        UserRepresentation userRepresentation = new UserRepresentation();
+
+        userRepresentation.setUsername(createUserRequest.getUsername());
+        userRepresentation.setEmail(createUserRequest.getEmail());
+        userRepresentation.setFirstName(createUserRequest.getFirstName());
+        userRepresentation.setLastName(createUserRequest.getLastName());
+        userRepresentation.setRealmRoles(createUserRequest.getRoles().stream().map(RoleDTO::getName).toList());
+        userRepresentation.setEnabled(true);
+
+        realmResource.users().create(userRepresentation);
+    }
+
 }

@@ -9,8 +9,6 @@ import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequ
 import com.durys.jakub.accessmanagement.user.model.dto.UserDTO;
 import com.durys.jakub.accessmanagement.user.service.UserDetailsServiceFacade;
 import com.durys.jakub.accessmanagement.user.service.UserService;
-import com.durys.jakub.accessmanagement.user_role.model.dto.AddRolesToUserRequest;
-import com.durys.jakub.accessmanagement.user_role.service.UserRoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -46,12 +44,12 @@ public class UserController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody CreateUserRequest createUserRequest) {
-        userDetailsServiceFacade.createUser(createUserRequest);
+        keycloakClientApi.createUser(createUserRequest);
     }
 
     @PostMapping("/{id}/roles")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addRoles(@RequestBody AddRolesToUserRequest request) {
+    public void addRoles(@RequestBody Object request) {
         userDetailsServiceFacade.addRolesToUser(request);
     }
 
