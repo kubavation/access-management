@@ -1,6 +1,7 @@
 package com.durys.jakub.accessmanagement.keycloak;
 
 import lombok.RequiredArgsConstructor;
+import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +19,9 @@ public class KeycloakClientApi {
 
     public UserRepresentation getUser(String id) {
         return keycloakClientService.getUser(id);
+    }
+
+    public List<RoleRepresentation> getUserRoles(String id) {
+        return keycloakClientService.getUserRoles(id);
     }
 }
