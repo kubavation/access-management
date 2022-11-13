@@ -1,5 +1,6 @@
 package com.durys.jakub.accessmanagement.keycloak;
 
+import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -24,6 +25,11 @@ public class KeycloakClientApi {
     public List<RoleRepresentation> getRoles() {
         return keycloakClientService.getRoles();
     }
+
+    public void createRole(RoleDTO roleDTO) {
+        keycloakClientService.createRole(roleDTO);
+    }
+
     public List<RoleRepresentation> getUserRoles(String id) {
         return keycloakClientService.getUserRoles(id);
     }

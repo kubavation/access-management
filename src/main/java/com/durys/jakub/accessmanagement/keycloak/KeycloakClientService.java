@@ -38,4 +38,10 @@ class KeycloakClientService {
     public List<RoleRepresentation> getRoles() {
         return realmResource.roles().list();
     }
+
+    public void createRole(RoleDTO roleDTO) {
+        RoleRepresentation roleRepresentation
+                = new RoleRepresentation(roleDTO.getName(), roleDTO.getDescription(), false);
+        realmResource.roles().create(roleRepresentation);
+    }
 }

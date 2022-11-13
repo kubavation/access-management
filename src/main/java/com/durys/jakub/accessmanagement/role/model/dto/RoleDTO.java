@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class RoleDTO {
     private String name;
-    private String desc;
+    private String description;
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class RoleMapper {
 
     public static Role toEntity(RoleDTO dto) {
-        return new Role(dto.getName(), dto.getDesc());
+        return new Role(dto.getName(), dto.getDescription());
     }
 
     public static RoleDTO toDTO(Role entity) {
