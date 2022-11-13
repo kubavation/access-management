@@ -26,6 +26,10 @@ public class KeycloakClientApi {
         return keycloakClientService.getUser(id);
     }
 
+    public UserRepresentation getUserByUsername(String username) {
+        return keycloakClientService.getUserByUsername(username);
+    }
+
     public List<RoleRepresentation> getRoles() {
         return keycloakClientService.getRoles();
     }
