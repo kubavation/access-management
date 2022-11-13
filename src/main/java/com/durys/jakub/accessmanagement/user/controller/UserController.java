@@ -33,8 +33,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}/details")
-    public UserDetailsDTO getUserDetails(@PathVariable Long id) {
-        return UserMapper.toDetailsDTO(userService.findById(id));
+    public UserDetailsDTO getUserDetails(@PathVariable String id) {
+        return UserMapper.toDetailsDTO(keycloakClientApi.getUser(id));
     }
 
     @GetMapping("/{username}/exists")
