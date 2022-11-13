@@ -38,6 +38,10 @@ public class KeycloakClientApi {
         keycloakClientService.deleteRole(roleName);
     }
 
+    public void addRolesToUser(String userId, List<RoleDTO> roles) {
+        keycloakClientService.addRolesToUser(userId, roles);
+    }
+
     public List<RoleRepresentation> getUserRoles(String id) {
         return keycloakClientService.getUserRoles(id);
     }

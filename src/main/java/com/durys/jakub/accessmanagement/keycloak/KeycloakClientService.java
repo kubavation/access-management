@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -53,5 +54,12 @@ class KeycloakClientService {
 
     public void deleteRole(String roleName) {
         realmResource.roles().get(roleName).remove();
+    }
+
+    public void addRolesToUser(String userId, List<RoleDTO> roles) {
+        UserRepresentation userRepresentation = realmResource.users().get(userId).toRepresentation();
+        userRepresentation.setRealmRoles(
+                roles.stream().map(RoleDTO::getName).toList());
+        realmResource.users().get(userId).update(userRepresentation);
     }
 }
