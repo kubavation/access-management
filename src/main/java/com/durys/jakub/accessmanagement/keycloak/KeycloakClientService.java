@@ -59,8 +59,7 @@ class KeycloakClientService {
 
     public void addRolesToUser(String userId, List<RoleDTO> roles) {
         UserRepresentation userRepresentation = realmResource.users().get(userId).toRepresentation();
-        userRepresentation.setRealmRoles(
-                roles.stream().map(RoleDTO::getName).toList());
+        userRepresentation.setRealmRoles(KeycloakUtils.toRealmRoles(roles));
         realmResource.users().get(userId).update(userRepresentation);
     }
 
