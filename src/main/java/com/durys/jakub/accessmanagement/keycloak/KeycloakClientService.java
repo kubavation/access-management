@@ -44,15 +44,13 @@ class KeycloakClientService {
     }
 
     public void createRole(RoleDTO roleDTO) {
-        RoleRepresentation roleRepresentation
-                = new RoleRepresentation(roleDTO.getName(), roleDTO.getDescription(), false);
-        realmResource.roles().create(roleRepresentation);
+       realmResource.roles()
+               .create(KeycloakUtils.toKeycloakRoleRepresentation(roleDTO));
     }
 
     public void updateRole(String roleName, RoleDTO roleDTO) {
-        RoleRepresentation roleRepresentation
-                = new RoleRepresentation(roleName, roleDTO.getDescription(), false);
-        realmResource.roles().get(roleName).update(roleRepresentation);
+        roleDTO.setName(roleName);
+        realmResource.roles().get(roleName).update(KeycloakUtils.toKeycloakRoleRepresentation(roleDTO));
     }
 
     public void deleteRole(String roleName) {
@@ -69,18 +67,7 @@ class KeycloakClientService {
 
     @Transactional
     public void createUser(CreateUserRequest createUserRequest) {
-
-        UserRepresentation userRepresentation = new UserRepresentation();
-
-        userRepresentation.setUsername(createUserRequest.getUsername());
-        userRepresentation.setEmail(createUserRequest.getEmail());
-        userRepresentation.setFirstName(createUserRequest.getFirstName());
-        userRepresentation.setLastName(createUserRequest.getLastName());
-        userRepresentation.setRealmRoles(createUserRequest.getRoles().stream().map(RoleDTO::getName).toList());
-        userRepresentation.setEnabled(true);
-
-        realmResource.users().create(userRepresentation);
-        System.out.println("created");
+        realmResource.users().create(KeycloakUtils.toKeycloakUserRepresentation(createUserRequest));
     }
 
 }
