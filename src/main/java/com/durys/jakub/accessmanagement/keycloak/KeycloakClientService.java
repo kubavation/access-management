@@ -36,10 +36,7 @@ class KeycloakClientService {
     }
 
     public List<RoleRepresentation> getUserRoles(String userId) {
-        return realmResource.users().get(userId).roles().realmLevel()
-                .listAll()
-                .stream()
-                .toList();
+        return realmResource.users().get(userId).roles().realmLevel().listAll();
     }
 
     public List<RoleRepresentation> getRoles() {
