@@ -5,10 +5,12 @@ import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequ
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UserResource;
+import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,7 +68,13 @@ class KeycloakClientService {
 
     @Transactional
     public void createUser(CreateUserRequest createUserRequest) {
-        realmResource.users().create(KeycloakUtils.toKeycloakUserRepresentation(createUserRequest));
+
+        UserRepresentation userRepresentation = KeycloakUtils.toKeycloakUserRepresentation(createUserRequest);
+        userRepresentation.setCredentials(
+                Collections.singletonList(KeycloakPasswordGenerator.credentialRepresentation())
+        );
+        
+        realmResource.users().create(userRepresentation);
     }
 
 }

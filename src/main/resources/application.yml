@@ -30,6 +30,3 @@ keycloak:
   resource: access-management
   credentials:
     secret: zRBzHE8tLRvcHakGHsqHwcacxFYldYFf
-#external-user:
-#  username: admin
-#  password: admin
