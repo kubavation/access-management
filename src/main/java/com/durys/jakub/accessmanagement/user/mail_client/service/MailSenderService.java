@@ -10,11 +10,10 @@ import org.springframework.web.reactive.function.client.WebClient;
 @RequiredArgsConstructor
 public class MailSenderService {
 
-    private final WebClient.Builder mailClient;
+    private final WebClient mailClient;
 
     public void send(MailWithTemporaryPasswordDTO mail) {
-       mailClient.build()
-                .post()
+       mailClient.post()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(BodyInserters.fromValue(mail)).exchange().block();
     }

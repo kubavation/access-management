@@ -16,14 +16,14 @@ class MailClientConfiguration {
     }
 
     @Bean
-    WebClient.Builder mailClientBuilder() {
+    WebClient mailClientBuilder() {
         return WebClient.builder()
-                .baseUrl(mailService);
+                .baseUrl(mailService).build();
     }
 
     @Bean
-    MailSenderService mailSenderService(WebClient.Builder mailClientBuilder) {
-        return new MailSenderService(mailClientBuilder);
+    MailSenderService mailSenderService(WebClient mailClient) {
+        return new MailSenderService(mailClient);
     }
 
 }
