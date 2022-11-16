@@ -1,10 +1,9 @@
 package com.durys.jakub.accessmanagement.user.mail_client.model;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
+@Getter
 public class MailWithTemporaryPasswordDTO {
     private String destination;
     private String title;
