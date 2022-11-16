@@ -1,26 +1,28 @@
 package com.durys.jakub.accessmanagement.keycloak;
 
+import com.durys.jakub.accessmanagement.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
+import org.keycloak.admin.client.CreatedResponseUtil;
 import org.keycloak.admin.client.resource.RealmResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import javax.transaction.Transactional;
+import javax.ws.rs.core.Response;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 
 @RequiredArgsConstructor
 class KeycloakClientService {
 
     private final RealmResource realmResource;
-    private final WebClient.Builder webClientBuilder;
 
     public List<UserRepresentation> getUsers() {
         return realmResource.users().list();
@@ -69,14 +71,17 @@ class KeycloakClientService {
 
 
     @Transactional
-    public void createUser(CreateUserRequest createUserRequest) {
+    public KeycloakUserCreatedResponse createUser(CreateUserRequest createUserRequest) {
 
         UserRepresentation userRepresentation = KeycloakUtils.toKeycloakUserRepresentation(createUserRequest);
-        userRepresentation.setCredentials(
-                Collections.singletonList(KeycloakPasswordGenerator.credentialRepresentation())
-        );
 
-        realmResource.users().create(userRepresentation);
+        CredentialRepresentation credentialRepresentation = KeycloakPasswordGenerator.credentialRepresentation();
+        userRepresentation.setCredentials(Collections.singletonList(credentialRepresentation));
+
+        var response = realmResource.users().create(userRepresentation);
+
+        return new KeycloakUserCreatedResponse(CreatedResponseUtil.getCreatedId(response),
+                credentialRepresentation.getValue(), createUserRequest.getEmail());
     }
 
 }
