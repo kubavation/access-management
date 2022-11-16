@@ -11,6 +11,7 @@ import org.keycloak.admin.client.resource.RealmResource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Configuration
 class KeycloakExternalConfiguration {
@@ -22,18 +23,23 @@ class KeycloakExternalConfiguration {
     private final String externalLogin;
     private final String externalPassword;
 
+    private final String mailServiceUrl;
+
     public KeycloakExternalConfiguration(@Value("${keycloak.auth-server-url}") String keycloakServer,
                                          @Value("${keycloak.realm}") String keycloakRealm,
                                          @Value("${keycloak.resource}")String clientId,
                                          @Value("${keycloak.credentials.secret}") String secret,
                                          @Value("${external-user.username}") String externalLogin,
-                                         @Value("${external-user.password}") String externalPassword) {
+                                         @Value("${external-user.password}") String externalPassword,
+                                         @Value("${mail-service-url}") String mailServiceUrl) {
+
         this.keycloakServer = keycloakServer;
         this.keycloakRealm = keycloakRealm;
         this.clientId = clientId;
         this.secret = secret;
         this.externalLogin = externalLogin;
         this.externalPassword = externalPassword;
+        this.mailServiceUrl = mailServiceUrl;
     }
 
     Keycloak keycloakClient() {
@@ -52,13 +58,20 @@ class KeycloakExternalConfiguration {
         return keycloakClient().realm(keycloakRealm);
     }
 
-    KeycloakClientService keycloakClientService() {
-        return new KeycloakClientService(realmResource());
+    @Bean
+    WebClient.Builder webClientBuilder() {
+        return WebClient.builder()
+                .baseUrl(mailServiceUrl);
     }
 
     @Bean
-    KeycloakClientApi keycloakClientApi() {
-        return new KeycloakClientApi(keycloakClientService());
+    KeycloakClientService keycloakClientService(WebClient.Builder webClientBuilder) {
+        return new KeycloakClientService(realmResource(), webClientBuilder);
+    }
+
+    @Bean
+    KeycloakClientApi keycloakClientApi(KeycloakClientService keycloakClientService) {
+        return new KeycloakClientApi(keycloakClientService);
     }
 
 }

@@ -30,3 +30,5 @@ keycloak:
   resource: access-management
   credentials:
     secret: zRBzHE8tLRvcHakGHsqHwcacxFYldYFf
+
+mail-service-url: http://localhost:8765/mails
