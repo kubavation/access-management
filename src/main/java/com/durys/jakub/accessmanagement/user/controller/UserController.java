@@ -23,7 +23,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
     private final KeycloakClientApi keycloakClientApi;
     private final MailSenderService mailSenderService;
 
@@ -40,8 +39,7 @@ public class UserController {
 
     @GetMapping("/{username}/exists")
     public boolean isUsernameAlreadyExists(@PathVariable String username) {
-       // return userService.isUsernameAlreadyExists(username);
-        return false;
+       return keycloakClientApi.isUserWithUsernameExists(username);
     }
 
     @PostMapping
