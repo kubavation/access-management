@@ -8,7 +8,6 @@ import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import javax.transaction.Transactional;
 import java.util.Collections;
@@ -20,7 +19,6 @@ import java.util.Optional;
 class KeycloakClientService {
 
     private final RealmResource realmResource;
-    private final WebClient.Builder webClientBuilder;
 
     public List<UserRepresentation> getUsers() {
         return realmResource.users().list();
@@ -77,6 +75,7 @@ class KeycloakClientService {
         );
 
         realmResource.users().create(userRepresentation);
+        //todo event od maila z haslem
     }
 
 }
