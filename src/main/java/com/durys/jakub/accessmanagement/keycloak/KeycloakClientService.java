@@ -2,6 +2,7 @@ package com.durys.jakub.accessmanagement.keycloak;
 
 import com.durys.jakub.accessmanagement.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
+import com.durys.jakub.accessmanagement.user.exception.UsernameAlreadyExistsException;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.CreatedResponseUtil;
@@ -80,8 +81,21 @@ class KeycloakClientService {
 
         var response = realmResource.users().create(userRepresentation);
 
+        validateResponseAfterUserCreation(response, userRepresentation);
+
         return new KeycloakUserCreatedResponse(CreatedResponseUtil.getCreatedId(response),
                 credentialRepresentation.getValue(), createUserRequest.getEmail());
+    }
+
+    private void validateResponseAfterUserCreation(Response response, UserRepresentation userRepresentation) {
+        switch (response.getStatus()) {
+            case 201:
+                return;
+            case 409:
+                throw new UsernameAlreadyExistsException(userRepresentation.getUsername());
+            default:
+                throw new RuntimeException("Failed to create user!");
+        }
     }
 
 }
