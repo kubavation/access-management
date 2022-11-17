@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class KeycloakUtils {
@@ -30,6 +32,11 @@ class KeycloakUtils {
     }
 
     public static List<String> toRealmRoles(List<RoleDTO> roles) {
+
+        if (Objects.isNull(roles)) {
+            return Collections.emptyList();
+        }
+
         return roles.stream()
                 .map(RoleDTO::getName).toList();
     }
