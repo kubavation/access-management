@@ -15,6 +15,9 @@ spring:
   cloud:
     config:
       label: master
+    loadbalancer:
+      ribbon:
+        enabled: false
 server:
   port: 65025
 eureka:
@@ -31,4 +34,4 @@ keycloak:
   credentials:
     secret: zRBzHE8tLRvcHakGHsqHwcacxFYldYFf
 
-mail-service-url: http://localhost:8765/mails
+mail-service-url: http://MAIL-SERVICE/mails

@@ -2,6 +2,7 @@ package com.durys.jakub.accessmanagement.user.mail_client.configuration;
 
 import com.durys.jakub.accessmanagement.user.mail_client.service.MailSenderService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -16,14 +17,20 @@ class MailClientConfiguration {
     }
 
     @Bean
-    WebClient.Builder mailClientBuilder() {
-        return WebClient.builder()
-                .baseUrl(mailService);
+    @LoadBalanced
+    public WebClient.Builder loadBalancedWebClientBuilder() {
+        return WebClient.builder();
     }
 
     @Bean
-    MailSenderService mailSenderService(WebClient.Builder mailClientBuilder) {
-        return new MailSenderService(mailClientBuilder);
+    WebClient webClient(WebClient.Builder builder) {
+        return builder
+                .baseUrl(mailService).build();
+    }
+
+    @Bean
+    MailSenderService mailSenderService(WebClient mailClient) {
+        return new MailSenderService(mailClient);
     }
 
 }

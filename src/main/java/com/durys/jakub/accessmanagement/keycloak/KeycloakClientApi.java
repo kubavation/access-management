@@ -56,4 +56,7 @@ public class KeycloakClientApi {
     }
 
 
+    public boolean isUserWithUsernameExists(String username) {
+        return keycloakClientService.isUserWithUsernameExists(username);
+    }
 }

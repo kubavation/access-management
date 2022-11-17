@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class KeycloakUtils {
@@ -23,14 +25,10 @@ class KeycloakUtils {
         userRepresentation.setEmail(user.getEmail());
         userRepresentation.setFirstName(user.getFirstName());
         userRepresentation.setLastName(user.getLastName());
-        userRepresentation.setRealmRoles(toRealmRoles(user.getRoles()));
         userRepresentation.setEnabled(true);
+
 
         return userRepresentation;
     }
 
-    public static List<String> toRealmRoles(List<RoleDTO> roles) {
-        return roles.stream()
-                .map(RoleDTO::getName).toList();
-    }
 }

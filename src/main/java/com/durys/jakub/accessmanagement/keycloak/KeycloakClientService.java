@@ -2,10 +2,12 @@ package com.durys.jakub.accessmanagement.keycloak;
 
 import com.durys.jakub.accessmanagement.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
+import com.durys.jakub.accessmanagement.user.exception.UsernameAlreadyExistsException;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.CreatedResponseUtil;
 import org.keycloak.admin.client.resource.RealmResource;
+import org.keycloak.admin.client.resource.RoleResource;
 import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -13,10 +15,8 @@ import org.keycloak.representations.idm.UserRepresentation;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.core.Response;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Stream;
 
 
 @RequiredArgsConstructor
@@ -41,8 +41,14 @@ class KeycloakClientService {
                 .orElseThrow(() -> new RuntimeException("user not found"));
     }
 
+    public Boolean isUserWithUsernameExists(String username) {
+        return realmResource.users().search(username)
+                .stream().findFirst().isPresent();
+    }
+
+
     public List<RoleRepresentation> getUserRoles(String userId) {
-        return realmResource.users().get(userId).roles().realmLevel().listAll();
+        return realmResource.users().get(userId).roles().getAll().getRealmMappings();
     }
 
     public List<RoleRepresentation> getRoles() {
@@ -64,9 +70,15 @@ class KeycloakClientService {
     }
 
     public void addRolesToUser(String userId, List<RoleDTO> roles) {
-        UserRepresentation userRepresentation = realmResource.users().get(userId).toRepresentation();
-        userRepresentation.setRealmRoles(KeycloakUtils.toRealmRoles(roles));
-        realmResource.users().get(userId).update(userRepresentation);
+
+        UserResource userResource = realmResource.users().get(userId);
+
+        List<RoleRepresentation> rolesRepresentations = roles.stream()
+                .map(role -> realmResource.roles().get(role.getName()))
+                .filter(Objects::nonNull)
+                .map(RoleResource::toRepresentation).toList();
+
+        userResource.roles().realmLevel().add(rolesRepresentations);
     }
 
 
@@ -80,8 +92,24 @@ class KeycloakClientService {
 
         var response = realmResource.users().create(userRepresentation);
 
+        validateResponseAfterUserCreation(response, userRepresentation);
+
+        addRolesToUser(CreatedResponseUtil.getCreatedId(response), createUserRequest.getRoles());
+
+
         return new KeycloakUserCreatedResponse(CreatedResponseUtil.getCreatedId(response),
                 credentialRepresentation.getValue(), createUserRequest.getEmail());
+    }
+
+    private void validateResponseAfterUserCreation(Response response, UserRepresentation userRepresentation) {
+        switch (response.getStatus()) {
+            case 201:
+                return;
+            case 409:
+                throw new UsernameAlreadyExistsException(userRepresentation.getUsername());
+            default:
+                throw new RuntimeException("Failed to create user!");
+        }
     }
 
 }
