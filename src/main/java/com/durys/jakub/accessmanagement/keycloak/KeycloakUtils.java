@@ -25,19 +25,10 @@ class KeycloakUtils {
         userRepresentation.setEmail(user.getEmail());
         userRepresentation.setFirstName(user.getFirstName());
         userRepresentation.setLastName(user.getLastName());
-        userRepresentation.setRealmRoles(toRealmRoles(user.getRoles()));
         userRepresentation.setEnabled(true);
+
 
         return userRepresentation;
     }
 
-    public static List<String> toRealmRoles(List<RoleDTO> roles) {
-
-        if (Objects.isNull(roles)) {
-            return Collections.emptyList();
-        }
-
-        return roles.stream()
-                .map(RoleDTO::getName).toList();
-    }
 }
