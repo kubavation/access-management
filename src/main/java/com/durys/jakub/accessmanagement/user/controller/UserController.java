@@ -49,6 +49,12 @@ public class UserController {
         mailSenderService.send(MailWithTemporaryPasswordDTO.from(createdUserResponse.getEmail(), createdUserResponse.getPassword()));
     }
 
+    @PutMapping("/{userId}/roles")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateUserRoles(@PathVariable String userId, @RequestBody List<RoleDTO> roles) {
+        keycloakClientApi.addRolesToUser(userId, roles);
+    }
+
     @GetMapping("/{id}/roles")
     public List<RoleDTO> getUserRoles(@PathVariable String id) {
         return keycloakClientApi.getUserRoles(id)
