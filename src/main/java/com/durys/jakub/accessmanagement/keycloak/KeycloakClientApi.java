@@ -6,7 +6,6 @@ import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequ
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -31,6 +30,20 @@ public class KeycloakClientApi {
         return keycloakClientService.getUserByUsername(username);
     }
 
+    public void addRolesToUser(String userId, List<RoleDTO> roles) {
+        keycloakClientService.updateUserRoles(userId, roles);
+    }
+
+    public List<RoleRepresentation> getUserRoles(String id) {
+        return keycloakClientService.getUserRoles(id);
+    }
+
+    public boolean isUserWithUsernameExists(String username) {
+        return keycloakClientService.isUserWithUsernameExists(username);
+    }
+
+
+
     public List<RoleRepresentation> getRoles() {
         return keycloakClientService.getRoles();
     }
@@ -47,17 +60,8 @@ public class KeycloakClientApi {
         keycloakClientService.deleteRole(roleName);
     }
 
-    public void addRolesToUser(String userId, List<RoleDTO> roles) {
-        keycloakClientService.clearUserRoles(userId);
-        keycloakClientService.addRolesToUser(userId, roles);
-    }
-
-    public List<RoleRepresentation> getUserRoles(String id) {
-        return keycloakClientService.getUserRoles(id);
-    }
-
-
-    public boolean isUserWithUsernameExists(String username) {
-        return keycloakClientService.isUserWithUsernameExists(username);
+    public void changeUserStatus(String userId, boolean enabled) {
+        UserRepresentation user = getUser(userId);
+        user.setEnabled(enabled);
     }
 }

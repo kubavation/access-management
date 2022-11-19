@@ -34,7 +34,7 @@ public class UserMapper {
     }
 
     public static UserDTO toDTO(UserRepresentation user) {
-        return new UserDTO(user.getId(), user.getUsername(), user.getEmail());
+        return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.isEnabled());
     }
 
 }

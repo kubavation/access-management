@@ -24,7 +24,6 @@ class KeycloakUtils {
         userRepresentation.setLastName(user.getLastName());
         userRepresentation.setEnabled(true);
 
-
         return userRepresentation;
     }
 
