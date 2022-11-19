@@ -81,6 +81,11 @@ class KeycloakClientService {
         userResource.roles().realmLevel().add(rolesRepresentations);
     }
 
+    public void clearUserRoles(String userId) {
+        realmResource.users().get(userId).roles().realmLevel()
+                .remove(realmResource.users().get(userId).roles().realmLevel().listAll());
+    }
+
 
     @Transactional
     public KeycloakUserCreatedResponse createUser(CreateUserRequest createUserRequest) {
