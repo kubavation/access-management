@@ -82,8 +82,13 @@ class KeycloakClientService {
     }
 
     public void clearUserRoles(String userId) {
-        realmResource.users().get(userId).roles().realmLevel()
-                .remove(realmResource.users().get(userId).roles().realmLevel().listAll());
+
+        List<RoleRepresentation> existingUserRoles = realmResource.users().get(userId)
+                .roles().realmLevel().listAll();
+
+        realmResource.users().get(userId)
+                .roles().realmLevel()
+                .remove(existingUserRoles);
     }
 
 
