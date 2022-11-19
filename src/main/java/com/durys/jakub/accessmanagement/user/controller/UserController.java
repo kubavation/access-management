@@ -8,6 +8,7 @@ import com.durys.jakub.accessmanagement.user.mail_client.model.MailWithTemporary
 import com.durys.jakub.accessmanagement.user.mail_client.service.MailSenderService;
 import com.durys.jakub.accessmanagement.user.mapper.UserMapper;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDetailsDTO;
+import com.durys.jakub.accessmanagement.user.model.dto.UserStatusDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDTO;
 import com.durys.jakub.accessmanagement.user.service.UserService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/users")
@@ -40,6 +42,16 @@ public class UserController {
     @GetMapping("/{username}/exists")
     public boolean isUsernameAlreadyExists(@PathVariable String username) {
        return keycloakClientApi.isUserWithUsernameExists(username);
+    }
+
+    @PatchMapping("/{userId}/status")
+    public void disableUser(@PathVariable String userId, @RequestBody UserStatusDTO userStatus) {
+
+        if (Objects.isNull(userStatus)) {
+            throw new IllegalArgumentException();
+        }
+
+        keycloakClientApi.changeUserStatus(userId, userStatus.isEnabled());
     }
 
     @PostMapping
