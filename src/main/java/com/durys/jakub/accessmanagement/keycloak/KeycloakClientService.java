@@ -133,4 +133,8 @@ class KeycloakClientService {
         user.setEnabled(enabled);
         realmResource.users().get(userId).update(user);
     }
+
+    public void deleteUser(String userId) {
+        realmResource.users().get(userId).remove();
+    }
 }

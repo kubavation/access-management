@@ -67,6 +67,12 @@ public class UserController {
         keycloakClientApi.addRolesToUser(userId, roles);
     }
 
+    @DeleteMapping("/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteUser(@PathVariable String userId) {
+        keycloakClientApi.deleteUser(userId);
+    }
+
     @GetMapping("/{id}/roles")
     public List<RoleDTO> getUserRoles(@PathVariable String id) {
         return keycloakClientApi.getUserRoles(id)

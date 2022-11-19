@@ -63,4 +63,8 @@ public class KeycloakClientApi {
     public void changeUserStatus(String userId, boolean enabled) {
         keycloakClientService.changeUserStatus(userId, enabled);
     }
+
+    public void deleteUser(String userId) {
+        keycloakClientService.deleteUser(userId);
+    }
 }
