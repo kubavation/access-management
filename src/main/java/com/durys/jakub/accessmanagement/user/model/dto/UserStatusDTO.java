@@ -2,9 +2,12 @@ package com.durys.jakub.accessmanagement.user.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
+
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserStatusDTO {
     private boolean enabled;
 }
