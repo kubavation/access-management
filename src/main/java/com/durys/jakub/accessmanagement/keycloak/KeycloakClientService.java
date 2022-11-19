@@ -81,7 +81,7 @@ class KeycloakClientService {
         userResource.roles().realmLevel().add(rolesRepresentations);
     }
 
-    public void clearUserRoles(String userId) {
+    private void clearUserRoles(String userId) {
 
         List<RoleRepresentation> existingUserRoles = realmResource.users().get(userId)
                 .roles().realmLevel().listAll();
@@ -89,6 +89,12 @@ class KeycloakClientService {
         realmResource.users().get(userId)
                 .roles().realmLevel()
                 .remove(existingUserRoles);
+    }
+
+    @Transactional
+    public void updateUserRoles(String userId, List<RoleDTO> roles) {
+        clearUserRoles(userId);
+        addRolesToUser(userId, roles);
     }
 
 

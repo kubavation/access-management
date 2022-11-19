@@ -48,8 +48,7 @@ public class KeycloakClientApi {
     }
 
     public void addRolesToUser(String userId, List<RoleDTO> roles) {
-        keycloakClientService.clearUserRoles(userId);
-        keycloakClientService.addRolesToUser(userId, roles);
+        keycloakClientService.updateUserRoles(userId, roles);
     }
 
     public List<RoleRepresentation> getUserRoles(String id) {
