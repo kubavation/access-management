@@ -61,7 +61,6 @@ public class KeycloakClientApi {
     }
 
     public void changeUserStatus(String userId, boolean enabled) {
-        UserRepresentation user = getUser(userId);
-        user.setEnabled(enabled);
+        keycloakClientService.changeUserStatus(userId, enabled);
     }
 }
