@@ -26,10 +26,6 @@ public class KeycloakClientApi {
         return keycloakClientService.getUser(id);
     }
 
-    public UserRepresentation getUserByUsername(String username) {
-        return keycloakClientService.getUserByUsername(username);
-    }
-
     public void addRolesToUser(String userId, List<RoleDTO> roles) {
         keycloakClientService.updateUserRoles(userId, roles);
     }
@@ -40,6 +36,14 @@ public class KeycloakClientApi {
 
     public boolean isUserWithUsernameExists(String username) {
         return keycloakClientService.isUserWithUsernameExists(username);
+    }
+
+    public void changeUserStatus(String userId, boolean enabled) {
+        keycloakClientService.changeUserStatus(userId, enabled);
+    }
+
+    public void deleteUser(String userId) {
+        keycloakClientService.deleteUser(userId);
     }
 
 
@@ -60,11 +64,5 @@ public class KeycloakClientApi {
         keycloakClientService.deleteRole(roleName);
     }
 
-    public void changeUserStatus(String userId, boolean enabled) {
-        keycloakClientService.changeUserStatus(userId, enabled);
-    }
 
-    public void deleteUser(String userId) {
-        keycloakClientService.deleteUser(userId);
-    }
 }
