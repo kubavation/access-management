@@ -11,11 +11,9 @@ import com.durys.jakub.accessmanagement.user.model.dto.UserDetailsDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.UserStatusDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDTO;
-import com.durys.jakub.accessmanagement.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Objects;
@@ -58,7 +56,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody CreateUserRequest createUserRequest) {
         KeycloakUserCreatedResponse createdUserResponse = keycloakClientApi.createUser(createUserRequest);
-        mailSenderService.send(MailWithTemporaryPasswordDTO.from(createdUserResponse.getEmail(), createdUserResponse.getPassword()));
+        mailSenderService.send(MailWithTemporaryPasswordDTO.from(createdUserResponse.email(), createdUserResponse.password()));
     }
 
     @PutMapping("/{userId}/roles")

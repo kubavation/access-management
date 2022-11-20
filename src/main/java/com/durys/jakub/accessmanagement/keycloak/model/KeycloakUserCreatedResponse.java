@@ -5,8 +5,5 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class KeycloakUserCreatedResponse {
-    private final String userId;
-    private final String password;
-    private final String email;
+public record KeycloakUserCreatedResponse(String userId, String password, String email) {
 }
