@@ -16,7 +16,6 @@ import org.keycloak.representations.idm.UserRepresentation;
 import javax.transaction.Transactional;
 import javax.ws.rs.core.Response;
 import java.util.*;
-import java.util.stream.Stream;
 
 
 @RequiredArgsConstructor
@@ -132,5 +131,9 @@ class KeycloakClientService {
         UserRepresentation user = getUser(userId);
         user.setEnabled(enabled);
         realmResource.users().get(userId).update(user);
+    }
+
+    public void deleteUser(String userId) {
+        realmResource.users().get(userId).remove();
     }
 }

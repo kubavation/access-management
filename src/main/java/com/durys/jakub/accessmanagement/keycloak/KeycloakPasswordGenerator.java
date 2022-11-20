@@ -9,7 +9,7 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class KeycloakPasswordGenerator {
 
-    private final static String PASSWORD_TYPE = "password";
+    private static final String PASSWORD_TYPE = "password";
 
     private static String generatePassword() {
         return UUID.randomUUID().toString();
