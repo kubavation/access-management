@@ -18,14 +18,17 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/am-realm
 server:
   port: 65025
 eureka:
   client:
     serviceUrl:
       defaultZone: http://eureka:password@localhost:8777/eureka/
-jwt:
-  hoursToExpire: 1
 keycloak:
   realm: am-realm
   auth-server-url: http://localhost:8080

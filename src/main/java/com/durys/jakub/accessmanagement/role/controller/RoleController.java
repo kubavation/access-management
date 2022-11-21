@@ -41,7 +41,7 @@ public class RoleController {
     }
 
     @PostMapping("/{name}/roles")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public void addRoles(@RequestBody AddRolesToUserRequest request) {
         keycloakClientApi.addRolesToUser(request.getUserId(), request.getRoles());
     }
