@@ -12,8 +12,10 @@ import com.durys.jakub.accessmanagement.user.model.dto.UserStatusDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +23,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
     private final KeycloakClientApi keycloakClientApi;
@@ -48,6 +51,8 @@ public class UserController {
         if (Objects.isNull(userStatus)) {
             throw new IllegalArgumentException();
         }
+
+        log.info("change user {} enabled-status to {}", userId, userStatus);
 
         keycloakClientApi.changeUserStatus(userId, userStatus.isEnabled());
     }
