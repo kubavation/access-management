@@ -1,8 +1,5 @@
 package com.durys.jakub.accessmanagement.keycloak;
 
-
-import com.durys.jakub.accessmanagement.keycloak.KeycloakClientApi;
-import lombok.NoArgsConstructor;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
