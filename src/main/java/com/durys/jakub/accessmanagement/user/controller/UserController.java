@@ -1,6 +1,7 @@
 package com.durys.jakub.accessmanagement.user.controller;
 
 import com.durys.jakub.accessmanagement.keycloak.KeycloakClientApi;
+import com.durys.jakub.accessmanagement.keycloak.api.KeycloakTokenUtils;
 import com.durys.jakub.accessmanagement.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
@@ -22,13 +23,12 @@ import java.util.Objects;
 
 @RestController
 @RequestMapping("/users")
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 public class UserController {
 
     private final KeycloakClientApi keycloakClientApi;
     private final MailSenderService mailSenderService;
-
 
     @GetMapping
     public List<UserDTO> getUsers() {
