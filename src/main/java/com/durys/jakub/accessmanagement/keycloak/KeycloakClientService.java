@@ -13,7 +13,7 @@ import org.keycloak.representations.idm.CredentialRepresentation;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import javax.ws.rs.core.Response;
 import java.util.*;
 

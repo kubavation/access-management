@@ -23,7 +23,7 @@
             <column name="first_name" type="varchar2(255)"/>
             <column name="last_name" type="varchar2(255)"/>
             <column name="is_locked" type="boolean" defaultValue="false" />
-            <column name="status" type="varchar2(1)" defaultValue="A" >
+            <column name="cmStatus" type="varchar2(1)" defaultValue="A" >
                 <constraints nullable="false" />
             </column>
             <column name="created_at" type="date">

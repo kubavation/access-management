@@ -13,7 +13,7 @@
           </not>
         </preConditions>
         <addColumn tableName="AM_ROLE">
-            <column name="status" type="varchar2(1)"/>
+            <column name="cmStatus" type="varchar2(1)"/>
         </addColumn>
     </changeSet>
 </databaseChangeLog>
