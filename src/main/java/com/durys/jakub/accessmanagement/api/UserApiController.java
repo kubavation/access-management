@@ -28,9 +28,11 @@ public class UserApiController {
         return keycloakClientApi.getUserRoles(userId);
     }
 
-    @GetMapping("/{userId}/roles/{role}")
+    @GetMapping("/{userId}/roles/contains/{role}")
     boolean hasRole(@PathVariable String userId, @PathVariable String role) {
         return keycloakClientApi.hasRole(userId, role);
     }
+
+
 
 }
