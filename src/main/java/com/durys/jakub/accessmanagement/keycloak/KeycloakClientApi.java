@@ -64,5 +64,11 @@ public class KeycloakClientApi {
         keycloakClientService.deleteRole(roleName);
     }
 
+    public boolean hasRole(String userId, String role) {
+        return getUserRoles(userId)
+                .stream()
+                .map(RoleRepresentation::getName)
+                .anyMatch(r -> r.equals(role));
+    }
 
 }
