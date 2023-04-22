@@ -40,6 +40,13 @@ class KeycloakClientService {
                 .orElseThrow(() -> new RuntimeException("user not found"));
     }
 
+    public List<UserRepresentation> getUsersWithRole(String role) {
+        return realmResource.users().list()
+                .stream()
+                .filter(u -> u.getRealmRoles().contains(role))
+                .toList();
+    }
+
     public Boolean isUserWithUsernameExists(String username) {
         return realmResource.users().search(username)
                 .stream().findFirst().isPresent();

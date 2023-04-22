@@ -33,6 +33,9 @@ public class UserApiController {
         return keycloakClientApi.hasRole(userId, role);
     }
 
-
+    @GetMapping("/roles/{role}")
+    List<UserRepresentation> usersWithRole(@PathVariable String role) {
+        return keycloakClientApi.getUsersWithRole(role);
+    }
 
 }
