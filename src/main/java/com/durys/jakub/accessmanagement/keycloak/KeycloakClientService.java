@@ -23,41 +23,41 @@ class KeycloakClientService {
 
     private final RealmResource realmResource;
 
-    public List<UserRepresentation> getUsers() {
+    public List<UserRepresentation> users() {
         return realmResource.users().list();
     }
 
-    public UserRepresentation getUser(String id) {
+    public UserRepresentation userById(String id) {
         return Optional.ofNullable(realmResource.users().get(id))
                 .map(UserResource::toRepresentation)
                 .orElseThrow(() -> new RuntimeException("user not found"));
     }
 
 
-    public UserRepresentation getUserByUsername(String username) {
+    public UserRepresentation userByUsername(String username) {
         return realmResource.users().search(username)
                 .stream().findFirst()
                 .orElseThrow(() -> new RuntimeException("user not found"));
     }
 
-    public List<UserRepresentation> getUsersWithRole(String role) {
+    public List<UserRepresentation> usersWithRole(String role) {
         return realmResource.users().list()
                 .stream()
                 .filter(u -> u.getRealmRoles().contains(role))
                 .toList();
     }
 
-    public Boolean isUserWithUsernameExists(String username) {
+    public Boolean usernameAlreadyExists(String username) {
         return realmResource.users().search(username)
                 .stream().findFirst().isPresent();
     }
 
 
-    public List<RoleRepresentation> getUserRoles(String userId) {
+    public List<RoleRepresentation> userRoles(String userId) {
         return realmResource.users().get(userId).roles().getAll().getRealmMappings();
     }
 
-    public List<RoleRepresentation> getRoles() {
+    public List<RoleRepresentation> roles() {
         return realmResource.roles().list();
     }
 
@@ -135,7 +135,7 @@ class KeycloakClientService {
     }
 
     public void changeUserStatus(String userId, boolean enabled) {
-        UserRepresentation user = getUser(userId);
+        UserRepresentation user = userById(userId);
         user.setEnabled(enabled);
         realmResource.users().get(userId).update(user);
     }

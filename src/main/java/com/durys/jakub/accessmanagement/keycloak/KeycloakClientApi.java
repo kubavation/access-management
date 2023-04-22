@@ -15,7 +15,7 @@ public class KeycloakClientApi {
     private final KeycloakClientService keycloakClientService;
 
     public List<UserRepresentation> getUsers() {
-        return keycloakClientService.getUsers();
+        return keycloakClientService.users();
     }
 
     public KeycloakUserCreatedResponse createUser(CreateUserRequest request) {
@@ -23,7 +23,7 @@ public class KeycloakClientApi {
     }
 
     public UserRepresentation getUser(String id) {
-        return keycloakClientService.getUser(id);
+        return keycloakClientService.userById(id);
     }
 
     public void addRolesToUser(String userId, List<RoleDTO> roles) {
@@ -31,11 +31,11 @@ public class KeycloakClientApi {
     }
 
     public List<RoleRepresentation> getUserRoles(String id) {
-        return keycloakClientService.getUserRoles(id);
+        return keycloakClientService.userRoles(id);
     }
 
     public boolean isUserWithUsernameExists(String username) {
-        return keycloakClientService.isUserWithUsernameExists(username);
+        return keycloakClientService.usernameAlreadyExists(username);
     }
 
     public void changeUserStatus(String userId, boolean enabled) {
@@ -49,7 +49,7 @@ public class KeycloakClientApi {
 
 
     public List<RoleRepresentation> getRoles() {
-        return keycloakClientService.getRoles();
+        return keycloakClientService.roles();
     }
 
     public void createRole(RoleDTO roleDTO) {
@@ -72,6 +72,6 @@ public class KeycloakClientApi {
     }
 
     public List<UserRepresentation> getUsersWithRole(String role) {
-        return keycloakClientService.getUsersWithRole(role);
+        return keycloakClientService.usersWithRole(role);
     }
 }
