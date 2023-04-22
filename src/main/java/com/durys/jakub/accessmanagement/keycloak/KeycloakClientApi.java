@@ -71,4 +71,7 @@ public class KeycloakClientApi {
                 .anyMatch(r -> r.equals(role));
     }
 
+    public List<UserRepresentation> getUsersWithRole(String role) {
+        return keycloakClientService.getUsersWithRole(role);
+    }
 }
