@@ -1,6 +1,6 @@
 package com.durys.jakub.accessmanagement.user.mapper;
 
-import com.durys.jakub.accessmanagement.user.model.dto.UserDTO;
+import com.durys.jakub.accessmanagement.user.model.dto.User;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDetailsDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -29,12 +29,12 @@ public class UserMapper {
                 .build();
     }
 
-    public static List<UserDTO> toDTO(List<UserRepresentation> entities) {
+    public static List<User> toDTO(List<UserRepresentation> entities) {
         return entities.stream().map(UserMapper::toDTO).toList();
     }
 
-    public static UserDTO toDTO(UserRepresentation user) {
-        return new UserDTO(user.getId(), user.getUsername(), user.getEmail(), user.isEnabled());
+    public static User toDTO(UserRepresentation user) {
+        return new User(user.getId(), user.getUsername(), user.getEmail(), user.isEnabled());
     }
 
 }

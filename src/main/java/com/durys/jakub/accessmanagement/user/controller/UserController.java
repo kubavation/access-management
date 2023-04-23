@@ -1,7 +1,6 @@
 package com.durys.jakub.accessmanagement.user.controller;
 
 import com.durys.jakub.accessmanagement.keycloak.KeycloakClientApi;
-import com.durys.jakub.accessmanagement.keycloak.api.KeycloakTokenUtils;
 import com.durys.jakub.accessmanagement.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
@@ -11,7 +10,7 @@ import com.durys.jakub.accessmanagement.user.mapper.UserMapper;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDetailsDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.UserStatusDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
-import com.durys.jakub.accessmanagement.user.model.dto.UserDTO;
+import com.durys.jakub.accessmanagement.user.model.dto.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -31,7 +30,7 @@ public class UserController {
     private final MailSenderService mailSenderService;
 
     @GetMapping
-    public List<UserDTO> getUsers() {
+    public List<User> getUsers() {
         return UserMapper.toDTO(keycloakClientApi.getUsers());
     }
 
