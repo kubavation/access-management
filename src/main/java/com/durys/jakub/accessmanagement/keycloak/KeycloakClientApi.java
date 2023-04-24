@@ -2,6 +2,8 @@ package com.durys.jakub.accessmanagement.keycloak;
 
 import com.durys.jakub.accessmanagement.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
+import com.durys.jakub.accessmanagement.user.UserRepository;
+import com.durys.jakub.accessmanagement.user.model.dto.User;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -10,7 +12,7 @@ import org.keycloak.representations.idm.UserRepresentation;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class KeycloakClientApi {
+public class KeycloakClientApi implements UserRepository {
 
     private final KeycloakClientService keycloakClientService;
 
@@ -73,5 +75,15 @@ public class KeycloakClientApi {
 
     public List<UserRepresentation> getUsersWithRole(String role) {
         return keycloakClientService.usersWithRole(role);
+    }
+
+    @Override
+    public List<User> users() {
+        return KeycloakUserConverter.instance().toUsers(keycloakClientService.users());
+    }
+
+    @Override
+    public User userById(String id) {
+        return KeycloakUserConverter.instance().toUser(keycloakClientService.userById(id));
     }
 }
