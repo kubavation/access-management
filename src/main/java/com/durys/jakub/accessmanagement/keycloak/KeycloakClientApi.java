@@ -16,18 +16,9 @@ public class KeycloakClientApi implements UserRepository {
 
     private final KeycloakClientService keycloakClientService;
 
-    public List<UserRepresentation> getUsers() {
-        return keycloakClientService.users();
-    }
-
     public KeycloakUserCreatedResponse createUser(CreateUserRequest request) {
         return keycloakClientService.createUser(request);
     }
-
-    public UserRepresentation getUser(String id) {
-        return keycloakClientService.userById(id);
-    }
-
     public void addRolesToUser(String userId, List<RoleDTO> roles) {
         keycloakClientService.updateUserRoles(userId, roles);
     }
@@ -79,11 +70,13 @@ public class KeycloakClientApi implements UserRepository {
 
     @Override
     public List<User> users() {
-        return KeycloakUserConverter.instance().toUsers(keycloakClientService.users());
+        return KeycloakUserConverter.instance()
+                .toUsers(keycloakClientService.users());
     }
 
     @Override
     public User userById(String id) {
-        return KeycloakUserConverter.instance().toUser(keycloakClientService.userById(id));
+        return KeycloakUserConverter.instance()
+                .toUser(keycloakClientService.userById(id));
     }
 }

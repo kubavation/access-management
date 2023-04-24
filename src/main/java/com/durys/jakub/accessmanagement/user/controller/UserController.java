@@ -4,6 +4,7 @@ import com.durys.jakub.accessmanagement.keycloak.KeycloakClientApi;
 import com.durys.jakub.accessmanagement.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
+import com.durys.jakub.accessmanagement.user.UserRepository;
 import com.durys.jakub.accessmanagement.user.mail_client.model.MailWithTemporaryPasswordDTO;
 import com.durys.jakub.accessmanagement.user.mail_client.service.MailSenderService;
 import com.durys.jakub.accessmanagement.user.mapper.UserMapper;
@@ -26,17 +27,18 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final KeycloakClientApi keycloakClientApi;
+    //private final KeycloakClientApi keycloakClientApi;
+    private final UserRepository userRepository;
     private final MailSenderService mailSenderService;
 
     @GetMapping
     public List<User> getUsers() {
-        return UserMapper.toDTO(keycloakClientApi.getUsers());
+        return userRepository.users();
     }
 
     @GetMapping("/{id}/details")
     public UserDetailsDTO getUserDetails(@PathVariable String id) {
-        return UserMapper.toDetailsDTO(keycloakClientApi.getUser(id));
+       // return UserMapper.toDetailsDTO(keycloakClientApi.getUser(id));
     }
 
     @GetMapping("/{username}/exists")
