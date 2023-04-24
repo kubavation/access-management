@@ -9,9 +9,15 @@ import org.keycloak.representations.idm.UserRepresentation;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class KeycloakUserConverter implements UserConverter<UserRepresentation> {
 
+    private static final KeycloakUserConverter INSTANCE = new KeycloakUserConverter();
+
+    public static KeycloakUserConverter instance() {
+        return INSTANCE;
+    }
+
     @Override
     public User toUser(UserRepresentation representation) {
-        return new User(representation.getId(), representation.getUsername(), representation.getEmail(), representation.isEnabled());;
+        return new User(representation.getId(), representation.getUsername(), representation.getEmail(), representation.isEnabled());
     }
 
     @Override
