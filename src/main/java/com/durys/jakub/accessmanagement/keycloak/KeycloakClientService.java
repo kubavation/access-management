@@ -2,6 +2,7 @@ package com.durys.jakub.accessmanagement.keycloak;
 
 import com.durys.jakub.accessmanagement.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
+import com.durys.jakub.accessmanagement.user.exception.UserNotFoundException;
 import com.durys.jakub.accessmanagement.user.exception.UsernameAlreadyExistsException;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +38,7 @@ class KeycloakClientService {
     public UserRepresentation userByUsername(String username) {
         return realmResource.users().search(username)
                 .stream().findFirst()
-                .orElseThrow(() -> new RuntimeException("user not found"));
+                .orElseThrow(() -> new UserNotFoundException(username));
     }
 
     public List<UserRepresentation> usersWithRole(String role) {
