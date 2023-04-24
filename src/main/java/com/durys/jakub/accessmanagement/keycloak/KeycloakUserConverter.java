@@ -10,12 +10,12 @@ import org.keycloak.representations.idm.UserRepresentation;
 public class KeycloakUserConverter implements UserConverter<UserRepresentation> {
 
     @Override
-    public User to(UserRepresentation representation) {
-        return new User(representation.getId(), representation.getUsername(), representation.getEmail(), representation.isEnabled());
+    public User toUser(UserRepresentation representation) {
+        return new User(representation.getId(), representation.getUsername(), representation.getEmail(), representation.isEnabled());;
     }
 
     @Override
-    public UserRepresentation to(User user) {
+    public UserRepresentation toRepresentation(User user) {
         UserRepresentation representation = new UserRepresentation();
         representation.setId(user.getId());
         representation.setUsername(user.getUsername());
