@@ -54,8 +54,8 @@ class KeycloakExternalConfiguration {
     }
 
     @Bean
-    KeycloakClientApi keycloakClientApi() {
-        return new KeycloakClientApi(keycloakClientService());
+    KeycloakUserRepository keycloakClientApi() {
+        return new KeycloakUserRepository(keycloakClientService());
     }
 
 }

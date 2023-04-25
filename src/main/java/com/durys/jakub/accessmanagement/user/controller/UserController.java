@@ -1,13 +1,11 @@
 package com.durys.jakub.accessmanagement.user.controller;
 
-import com.durys.jakub.accessmanagement.keycloak.KeycloakClientApi;
 import com.durys.jakub.accessmanagement.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.user.UserRepository;
 import com.durys.jakub.accessmanagement.user.mail_client.model.MailWithTemporaryPasswordDTO;
 import com.durys.jakub.accessmanagement.user.mail_client.service.MailSenderService;
-import com.durys.jakub.accessmanagement.user.mapper.UserMapper;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDetailsDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.UserStatusDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
