@@ -1,6 +1,6 @@
 package com.durys.jakub.accessmanagement.role.controller;
 
-import com.durys.jakub.accessmanagement.keycloak.KeycloakClientApi;
+import com.durys.jakub.accessmanagement.keycloak.KeycloakUserRepository;
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
 import com.durys.jakub.accessmanagement.role.model.dto.AddRolesToUserRequest;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
@@ -15,35 +15,35 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoleController {
 
-    private final KeycloakClientApi keycloakClientApi;
+    private final KeycloakUserRepository keycloakUserRepository;
 
     @GetMapping
     public List<RoleDTO> findAll() {
-        return RoleMapper.toDTO(keycloakClientApi.getRoles());
+        return RoleMapper.toDTO(keycloakUserRepository.getRoles());
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody RoleDTO role) {
-        keycloakClientApi.createRole(role);
+        keycloakUserRepository.createRole(role);
     }
 
     @PutMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable String name, @RequestBody RoleDTO role) {
-        keycloakClientApi.updateRole(name, role);
+        keycloakUserRepository.updateRole(name, role);
     }
 
     @DeleteMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable String name) {
-        keycloakClientApi.deleteRole(name);
+        keycloakUserRepository.deleteRole(name);
     }
 
     @PostMapping("/{name}/roles")
     @ResponseStatus(HttpStatus.OK)
     public void addRoles(@RequestBody AddRolesToUserRequest request) {
-        keycloakClientApi.addRolesToUser(request.getUserId(), request.getRoles());
+        keycloakUserRepository.addRolesToUser(request.getUserId(), request.getRoles());
     }
 
 }

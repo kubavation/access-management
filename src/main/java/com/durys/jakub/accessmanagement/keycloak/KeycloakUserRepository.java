@@ -12,7 +12,7 @@ import org.keycloak.representations.idm.UserRepresentation;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class KeycloakClientApi implements UserRepository {
+public class KeycloakUserRepository implements UserRepository {
 
     private final KeycloakClientService keycloakClientService;
 

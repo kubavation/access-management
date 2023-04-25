@@ -1,6 +1,6 @@
 package com.durys.jakub.accessmanagement.api;
 
-import com.durys.jakub.accessmanagement.keycloak.KeycloakClientApi;
+import com.durys.jakub.accessmanagement.keycloak.KeycloakUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
@@ -16,26 +16,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserApiController {
 
-    private final KeycloakClientApi keycloakClientApi;
+    private final KeycloakUserRepository keycloakUserRepository;
 
     @GetMapping("/{userId}")
     UserRepresentation user(@PathVariable String userId) {
-        return keycloakClientApi.getUser(userId);
+        return keycloakUserRepository.getUser(userId);
     }
 
     @GetMapping("/{userId}/roles")
     List<RoleRepresentation> userRoles(@PathVariable String userId) {
-        return keycloakClientApi.getUserRoles(userId);
+        return keycloakUserRepository.getUserRoles(userId);
     }
 
     @GetMapping("/{userId}/roles/contains/{role}")
     boolean hasRole(@PathVariable String userId, @PathVariable String role) {
-        return keycloakClientApi.hasRole(userId, role);
+        return keycloakUserRepository.hasRole(userId, role);
     }
 
     @GetMapping("/roles/{role}")
     List<UserRepresentation> usersWithRole(@PathVariable String role) {
-        return keycloakClientApi.getUsersWithRole(role);
+        return keycloakUserRepository.getUsersWithRole(role);
     }
 
 }
