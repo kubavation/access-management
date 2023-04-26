@@ -2,6 +2,7 @@ package com.durys.jakub.accessmanagement.user.model;
 
 import com.durys.jakub.accessmanagement.role.model.Role;
 import lombok.Data;
+import lombok.NonNull;
 
 import java.util.Collections;
 import java.util.Set;
@@ -24,5 +25,9 @@ public class User {
 
     public User(String id, String username, String email, boolean enabled) {
         this(id, username, email, enabled, Collections.emptySet());
+    }
+
+    public void setRoles(@NonNull Set<Role> roles) {
+        this.roles = roles;
     }
 }
