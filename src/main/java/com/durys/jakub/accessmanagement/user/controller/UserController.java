@@ -9,7 +9,7 @@ import com.durys.jakub.accessmanagement.user.mail_client.service.MailSenderServi
 import com.durys.jakub.accessmanagement.user.model.dto.UserDetailsDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.UserStatusDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
-import com.durys.jakub.accessmanagement.user.model.dto.User;
+import com.durys.jakub.accessmanagement.user.model.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
