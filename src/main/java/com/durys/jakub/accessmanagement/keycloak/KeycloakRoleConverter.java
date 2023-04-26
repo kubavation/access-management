@@ -1,14 +1,13 @@
 package com.durys.jakub.accessmanagement.keycloak;
 
-import com.durys.jakub.accessmanagement.user.UserConverter;
-import com.durys.jakub.accessmanagement.user.model.User;
+import com.durys.jakub.accessmanagement.role.RoleConverter;
+import com.durys.jakub.accessmanagement.role.model.Role;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
-import org.keycloak.representations.idm.UserRepresentation;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class KeycloakRoleConverter implements UserConverter<RoleRepresentation> {
+public class KeycloakRoleConverter implements RoleConverter<RoleRepresentation> {
 
     private static final KeycloakRoleConverter INSTANCE = new KeycloakRoleConverter();
 
@@ -17,17 +16,12 @@ public class KeycloakRoleConverter implements UserConverter<RoleRepresentation> 
     }
 
     @Override
-    public User toUser(RoleRepresentation representation) {
-        return new User(representation.getId(), representation.getUsername(), representation.getEmail(), representation.isEnabled());
+    public Role toRole(RoleRepresentation representation) {
+        return new Role(representation.getName(), representation.getDescription());
     }
 
     @Override
-    public UserRepresentation toRepresentation(User user) {
-        UserRepresentation representation = new UserRepresentation();
-        representation.setId(user.getId());
-        representation.setUsername(user.getUsername());
-        representation.setEmail(user.getEmail());
-        representation.setEnabled(user.isEnabled());
-        return representation;
+    public RoleRepresentation toRepresentation(Role role) {
+        return new RoleRepresentation(role.name(), role.description(), false);
     }
 }
