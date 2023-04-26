@@ -1,7 +1,7 @@
 package com.durys.jakub.accessmanagement.keycloak;
 
 import com.durys.jakub.accessmanagement.user.UserConverter;
-import com.durys.jakub.accessmanagement.user.model.dto.User;
+import com.durys.jakub.accessmanagement.user.model.User;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.keycloak.representations.idm.UserRepresentation;

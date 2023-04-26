@@ -3,7 +3,7 @@ package com.durys.jakub.accessmanagement.keycloak;
 import com.durys.jakub.accessmanagement.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.user.UserRepository;
-import com.durys.jakub.accessmanagement.user.model.dto.User;
+import com.durys.jakub.accessmanagement.user.model.User;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
@@ -78,5 +78,10 @@ public class KeycloakUserRepository implements UserRepository {
     public User userById(String id) {
         return KeycloakUserConverter.instance()
                 .toUser(keycloakClientService.userById(id));
+    }
+
+    @Override
+    public void delete(User user) {
+        keycloakClientService.deleteUser(user.getId());
     }
 }

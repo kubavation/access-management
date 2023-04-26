@@ -1,6 +1,6 @@
 package com.durys.jakub.accessmanagement.user.mapper;
 
-import com.durys.jakub.accessmanagement.user.model.dto.User;
+import com.durys.jakub.accessmanagement.user.model.User;
 import com.durys.jakub.accessmanagement.user.model.dto.UserDetailsDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
