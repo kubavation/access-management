@@ -79,4 +79,9 @@ public class KeycloakUserRepository implements UserRepository {
         return KeycloakUserConverter.instance()
                 .toUser(keycloakClientService.userById(id));
     }
+
+    @Override
+    public void delete(User user) {
+        keycloakClientService.deleteUser(user.getId());
+    }
 }
