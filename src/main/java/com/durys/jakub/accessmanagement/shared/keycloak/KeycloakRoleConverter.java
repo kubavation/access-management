@@ -1,7 +1,7 @@
 package com.durys.jakub.accessmanagement.shared.keycloak;
 
-import com.durys.jakub.accessmanagement.role.RoleConverter;
-import com.durys.jakub.accessmanagement.role.model.Role;
+import com.durys.jakub.accessmanagement.role.domain.RoleConverter;
+import com.durys.jakub.accessmanagement.role.domain.Role;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
