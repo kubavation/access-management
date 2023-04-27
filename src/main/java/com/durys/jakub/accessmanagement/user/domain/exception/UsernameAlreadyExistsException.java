@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.user.exception;
+package com.durys.jakub.accessmanagement.user.domain.exception;
 
 public class UsernameAlreadyExistsException extends RuntimeException {
     private static final String MSG = "User with username %s already exists";

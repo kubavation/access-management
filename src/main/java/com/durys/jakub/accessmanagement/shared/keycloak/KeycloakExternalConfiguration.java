@@ -1,5 +1,6 @@
 package com.durys.jakub.accessmanagement.shared.keycloak;
 
+import com.durys.jakub.accessmanagement.user.infrastructure.KeycloakUserRepository;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;

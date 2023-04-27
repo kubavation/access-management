@@ -1,7 +1,7 @@
 package com.durys.jakub.accessmanagement.shared.keycloak;
 
-import com.durys.jakub.accessmanagement.role.RoleRepository;
-import com.durys.jakub.accessmanagement.role.model.Role;
+import com.durys.jakub.accessmanagement.role.domain.RoleRepository;
+import com.durys.jakub.accessmanagement.role.domain.Role;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
 

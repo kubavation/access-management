@@ -1,6 +1,6 @@
 package com.durys.jakub.accessmanagement.user.domain;
 
-import com.durys.jakub.accessmanagement.role.model.Role;
+import com.durys.jakub.accessmanagement.role.domain.Role;
 import lombok.Data;
 import lombok.NonNull;
 

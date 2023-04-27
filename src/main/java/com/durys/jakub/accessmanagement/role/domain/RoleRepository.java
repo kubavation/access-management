@@ -1,6 +1,4 @@
-package com.durys.jakub.accessmanagement.role;
-
-import com.durys.jakub.accessmanagement.role.model.Role;
+package com.durys.jakub.accessmanagement.role.domain;
 
 import java.util.List;
 import java.util.Optional;

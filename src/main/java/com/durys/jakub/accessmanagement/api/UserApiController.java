@@ -1,6 +1,6 @@
 package com.durys.jakub.accessmanagement.api;
 
-import com.durys.jakub.accessmanagement.shared.keycloak.KeycloakUserRepository;
+import com.durys.jakub.accessmanagement.user.infrastructure.KeycloakUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;

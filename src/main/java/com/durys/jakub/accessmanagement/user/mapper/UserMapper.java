@@ -1,7 +1,7 @@
 package com.durys.jakub.accessmanagement.user.mapper;
 
 import com.durys.jakub.accessmanagement.user.domain.User;
-import com.durys.jakub.accessmanagement.user.model.dto.UserDetailsDTO;
+import com.durys.jakub.accessmanagement.user.infrastructure.dto.UserDetailsDTO;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.keycloak.representations.idm.UserRepresentation;
