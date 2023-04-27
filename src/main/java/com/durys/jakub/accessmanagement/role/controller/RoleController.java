@@ -1,6 +1,6 @@
 package com.durys.jakub.accessmanagement.role.controller;
 
-import com.durys.jakub.accessmanagement.shared.keycloak.KeycloakUserRepository;
+import com.durys.jakub.accessmanagement.user.infrastructure.KeycloakUserRepository;
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
 import com.durys.jakub.accessmanagement.role.model.dto.AddRolesToUserRequest;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;

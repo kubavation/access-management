@@ -1,5 +1,6 @@
-package com.durys.jakub.accessmanagement.shared.keycloak;
+package com.durys.jakub.accessmanagement.user.infrastructure;
 
+import com.durys.jakub.accessmanagement.shared.keycloak.KeycloakClientService;
 import com.durys.jakub.accessmanagement.shared.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.user.domain.UserRepository;
