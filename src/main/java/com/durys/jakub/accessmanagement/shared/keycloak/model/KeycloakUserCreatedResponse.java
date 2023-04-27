@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.keycloak.model;
+package com.durys.jakub.accessmanagement.shared.keycloak.model;
 
 
 public record KeycloakUserCreatedResponse(String userId, String password, String email) {

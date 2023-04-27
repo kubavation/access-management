@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.user.model;
+package com.durys.jakub.accessmanagement.user.domain;
 
 import com.durys.jakub.accessmanagement.role.model.Role;
 import lombok.Data;

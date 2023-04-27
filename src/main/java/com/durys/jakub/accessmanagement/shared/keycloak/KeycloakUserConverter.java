@@ -1,7 +1,7 @@
-package com.durys.jakub.accessmanagement.keycloak;
+package com.durys.jakub.accessmanagement.shared.keycloak;
 
-import com.durys.jakub.accessmanagement.user.UserConverter;
-import com.durys.jakub.accessmanagement.user.model.User;
+import com.durys.jakub.accessmanagement.user.domain.UserConverter;
+import com.durys.jakub.accessmanagement.user.domain.User;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.keycloak.representations.idm.UserRepresentation;

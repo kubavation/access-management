@@ -1,6 +1,4 @@
-package com.durys.jakub.accessmanagement.user;
-
-import com.durys.jakub.accessmanagement.user.model.User;
+package com.durys.jakub.accessmanagement.user.domain;
 
 import java.util.List;
 
