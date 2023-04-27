@@ -4,8 +4,8 @@ import com.durys.jakub.accessmanagement.shared.keycloak.model.KeycloakUserCreate
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.user.domain.UserRepository;
-import com.durys.jakub.accessmanagement.user.mail_client.model.MailWithTemporaryPasswordDTO;
-import com.durys.jakub.accessmanagement.user.mail_client.service.MailSenderService;
+import com.durys.jakub.accessmanagement.shared.mails.model.MailWithTemporaryPasswordDTO;
+import com.durys.jakub.accessmanagement.shared.mails.service.MailSenderService;
 import com.durys.jakub.accessmanagement.user.infrastructure.dto.UserDetailsDTO;
 import com.durys.jakub.accessmanagement.user.infrastructure.dto.UserStatusDTO;
 import com.durys.jakub.accessmanagement.user.infrastructure.dto.creational.CreateUserRequest;

@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.user.mail_client.model;
+package com.durys.jakub.accessmanagement.shared.mails.model;
 
 import lombok.*;
 

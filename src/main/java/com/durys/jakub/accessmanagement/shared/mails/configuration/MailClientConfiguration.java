@@ -1,6 +1,6 @@
-package com.durys.jakub.accessmanagement.user.mail_client.configuration;
+package com.durys.jakub.accessmanagement.shared.mails.configuration;
 
-import com.durys.jakub.accessmanagement.user.mail_client.service.MailSenderService;
+import com.durys.jakub.accessmanagement.shared.mails.service.MailSenderService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
