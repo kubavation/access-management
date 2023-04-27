@@ -1,8 +1,7 @@
-package com.durys.jakub.accessmanagement.keycloak;
+package com.durys.jakub.accessmanagement.shared.keycloak;
 
-import com.durys.jakub.accessmanagement.keycloak.model.KeycloakUserCreatedResponse;
+import com.durys.jakub.accessmanagement.shared.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
-import com.durys.jakub.accessmanagement.user.exception.UserNotFoundException;
 import com.durys.jakub.accessmanagement.user.exception.UsernameAlreadyExistsException;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
@@ -28,25 +27,25 @@ class KeycloakClientService {
         return realmResource.users().list();
     }
 
-    public UserRepresentation userById(String id) {
-        return Optional.ofNullable(realmResource.users().get(id))
-                .map(UserResource::toRepresentation)
-                .orElseThrow(() -> new RuntimeException("user not found"));
-    }
-
-
-    public UserRepresentation userByUsername(String username) {
-        return realmResource.users().search(username)
-                .stream().findFirst()
-                .orElseThrow(() -> new UserNotFoundException(username));
-    }
-
-    public List<UserRepresentation> usersWithRole(String role) {
-        return realmResource.users().list()
-                .stream()
-                .filter(u -> u.getRealmRoles().contains(role))
-                .toList();
-    }
+//    public UserRepresentation userById(String id) {
+//        return Optional.ofNullable(realmResource.users().get(id))
+//                .map(UserResource::toRepresentation)
+//                .orElseThrow(() -> new RuntimeException("user not found"));
+//    }
+//
+//
+//    public UserRepresentation userByUsername(String username) {
+//        return realmResource.users().search(username)
+//                .stream().findFirst()
+//                .orElseThrow(() -> new UserNotFoundException(username));
+//    }
+//
+//    public List<UserRepresentation> usersWithRole(String role) {
+//        return realmResource.users().list()
+//                .stream()
+//                .filter(u -> u.getRealmRoles().contains(role))
+//                .toList();
+//    }
 
     public Boolean usernameAlreadyExists(String username) {
         return realmResource.users().search(username)
@@ -61,6 +60,7 @@ class KeycloakClientService {
     public List<RoleRepresentation> roles() {
         return realmResource.roles().list();
     }
+
 
     public void createRole(RoleDTO roleDTO) {
        realmResource.roles()

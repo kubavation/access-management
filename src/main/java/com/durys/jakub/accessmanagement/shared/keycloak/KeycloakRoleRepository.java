@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.keycloak;
+package com.durys.jakub.accessmanagement.shared.keycloak;
 
 import com.durys.jakub.accessmanagement.role.RoleRepository;
 import com.durys.jakub.accessmanagement.role.model.Role;

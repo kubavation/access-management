@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.keycloak.api;
+package com.durys.jakub.accessmanagement.shared.keycloak.api;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.keycloak;
+package com.durys.jakub.accessmanagement.shared.keycloak;
 
 import com.durys.jakub.accessmanagement.user.domain.UserConverter;
 import com.durys.jakub.accessmanagement.user.domain.User;

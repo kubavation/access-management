@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.keycloak;
+package com.durys.jakub.accessmanagement.shared.keycloak;
 
 import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.user.model.dto.creational.CreateUserRequest;
