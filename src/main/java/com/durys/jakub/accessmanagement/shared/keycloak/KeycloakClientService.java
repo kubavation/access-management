@@ -14,12 +14,15 @@ import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Component;
+
 import javax.ws.rs.core.Response;
 import java.util.*;
 
 
 @RequiredArgsConstructor
-class KeycloakClientService {
+@Component
+public class KeycloakClientService {
 
     private final RealmResource realmResource;
 
