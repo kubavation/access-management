@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.user.exception;
+package com.durys.jakub.accessmanagement.user.domain.exception;
 
 public class EmailAlreadyExistsException extends RuntimeException {
     private static final String MSG = "User with email %s already exists";
