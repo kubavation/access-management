@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.role.exception;
+package com.durys.jakub.accessmanagement.role.domain.exception;
 
 public class RoleWithNameAlreadyExistsException extends RuntimeException {
 
