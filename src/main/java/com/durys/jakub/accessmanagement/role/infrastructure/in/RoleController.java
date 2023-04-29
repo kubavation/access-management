@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.role.controller;
+package com.durys.jakub.accessmanagement.role.infrastructure.in;
 
 import com.durys.jakub.accessmanagement.user.infrastructure.KeycloakUserRepository;
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
