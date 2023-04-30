@@ -2,8 +2,8 @@ package com.durys.jakub.accessmanagement.role.infrastructure.in;
 
 import com.durys.jakub.accessmanagement.user.infrastructure.KeycloakUserRepository;
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
-import com.durys.jakub.accessmanagement.role.model.dto.AddRolesToUserRequest;
-import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
+import com.durys.jakub.accessmanagement.role.infrastructure.model.dto.AddRolesToUserRequest;
+import com.durys.jakub.accessmanagement.role.infrastructure.model.dto.RoleDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

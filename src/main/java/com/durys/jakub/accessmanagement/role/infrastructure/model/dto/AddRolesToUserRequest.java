@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.role.model.dto;
+package com.durys.jakub.accessmanagement.role.infrastructure.model.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
