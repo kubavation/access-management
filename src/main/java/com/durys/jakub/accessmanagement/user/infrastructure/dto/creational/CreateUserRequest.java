@@ -1,7 +1,6 @@
 package com.durys.jakub.accessmanagement.user.infrastructure.dto.creational;
 
-import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
-import lombok.AllArgsConstructor;
+import com.durys.jakub.accessmanagement.role.infrastructure.model.dto.RoleDTO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;

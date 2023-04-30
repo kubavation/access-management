@@ -2,10 +2,9 @@ package com.durys.jakub.accessmanagement.user.infrastructure;
 
 import com.durys.jakub.accessmanagement.shared.keycloak.KeycloakClientService;
 import com.durys.jakub.accessmanagement.shared.keycloak.model.KeycloakUserCreatedResponse;
-import com.durys.jakub.accessmanagement.role.model.dto.RoleDTO;
+import com.durys.jakub.accessmanagement.role.infrastructure.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.user.domain.UserRepository;
 import com.durys.jakub.accessmanagement.user.domain.User;
-import com.durys.jakub.accessmanagement.user.infrastructure.KeycloakUserConverter;
 import com.durys.jakub.accessmanagement.user.infrastructure.dto.creational.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
