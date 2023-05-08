@@ -50,8 +50,8 @@ class KeycloakExternalConfiguration {
         return keycloakClient().realm(keycloakRealm);
     }
 
-    KeycloakClientService keycloakClientService() {
-        return new KeycloakClientService(realmResource());
+    KeycloakClient keycloakClientService() {
+        return new KeycloakClient(realmResource());
     }
 
     @Bean

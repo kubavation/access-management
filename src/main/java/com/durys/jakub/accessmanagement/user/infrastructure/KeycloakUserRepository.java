@@ -1,6 +1,6 @@
 package com.durys.jakub.accessmanagement.user.infrastructure;
 
-import com.durys.jakub.accessmanagement.shared.keycloak.KeycloakClientService;
+import com.durys.jakub.accessmanagement.shared.keycloak.KeycloakClient;
 import com.durys.jakub.accessmanagement.shared.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.infrastructure.model.dto.RoleDTO;
 import com.durys.jakub.accessmanagement.user.domain.UserRepository;
@@ -15,44 +15,44 @@ import java.util.List;
 @RequiredArgsConstructor
 public class KeycloakUserRepository implements UserRepository {
 
-    private final KeycloakClientService keycloakClientService;
+    private final KeycloakClient keycloakClient;
 
     public KeycloakUserCreatedResponse createUser(CreateUserRequest request) {
-        return keycloakClientService.createUser(request);
+        return keycloakClient.createUser(request);
     }
 
     public List<RoleRepresentation> getUserRoles(String id) {
-        return keycloakClientService.userRoles(id);
+        return keycloakClient.userRoles(id);
     }
 
     public boolean isUserWithUsernameExists(String username) {
-        return keycloakClientService.usernameAlreadyExists(username);
+        return keycloakClient.usernameAlreadyExists(username);
     }
 
     public void changeUserStatus(String userId, boolean enabled) {
-        keycloakClientService.changeUserStatus(userId, enabled);
+        keycloakClient.changeUserStatus(userId, enabled);
     }
 
     public void deleteUser(String userId) {
-        keycloakClientService.deleteUser(userId);
+        keycloakClient.deleteUser(userId);
     }
 
 
 
     public List<RoleRepresentation> getRoles() {
-        return keycloakClientService.roles();
+        return keycloakClient.roles();
     }
 
     public void createRole(RoleDTO roleDTO) {
-        keycloakClientService.createRole(roleDTO);
+        keycloakClient.createRole(roleDTO);
     }
 
     public void updateRole(String roleName, RoleDTO roleDTO) {
-        keycloakClientService.updateRole(roleName, roleDTO);
+        keycloakClient.updateRole(roleName, roleDTO);
     }
 
     public void deleteRole(String roleName) {
-        keycloakClientService.deleteRole(roleName);
+        keycloakClient.deleteRole(roleName);
     }
 
     public boolean hasRole(String userId, String role) {
@@ -63,23 +63,23 @@ public class KeycloakUserRepository implements UserRepository {
     }
 
     public List<UserRepresentation> getUsersWithRole(String role) {
-        return keycloakClientService.usersWithRole(role);
+        return keycloakClient.usersWithRole(role);
     }
 
     @Override
     public List<User> users() {
         return KeycloakUserConverter.instance()
-                .toUsers(keycloakClientService.users());
+                .toUsers(keycloakClient.users());
     }
 
     @Override
     public User userById(String id) {
         return KeycloakUserConverter.instance()
-                .toUser(keycloakClientService.userById(id));
+                .toUser(keycloakClient.userById(id));
     }
 
     @Override
     public void delete(User user) {
-        keycloakClientService.deleteUser(user.getId());
+        keycloakClient.deleteUser(user.getId());
     }
 }

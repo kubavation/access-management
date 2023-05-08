@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Component
-public class KeycloakClientService {
+public class KeycloakClient {
 
     private final RealmResource realmResource;
 

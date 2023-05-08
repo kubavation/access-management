@@ -11,11 +11,11 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class KeycloakRoleRepository implements RoleRepository {
 
-    private final KeycloakClientService keycloakClientService;
+    private final KeycloakClient keycloakClient;
 
     @Override
     public List<Role> roles() {
-        return KeycloakRoleConverter.instance().toRoles(keycloakClientService.roles());
+        return KeycloakRoleConverter.instance().toRoles(keycloakClient.roles());
     }
 
     @Override
@@ -28,12 +28,12 @@ public class KeycloakRoleRepository implements RoleRepository {
     @Override
     public void save(Role role) {
         RoleRepresentation representation = KeycloakRoleConverter.instance().toRepresentation(role);
-        keycloakClientService.roles().add(representation);
+        keycloakClient.roles().add(representation);
     }
 
     @Override
     public void delete(Role role) {
         RoleRepresentation representation = KeycloakRoleConverter.instance().toRepresentation(role);
-        keycloakClientService.roles().remove(representation);
+        keycloakClient.roles().remove(representation);
     }
 }
