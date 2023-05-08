@@ -1,8 +1,7 @@
 package com.durys.jakub.accessmanagement.role.infrastructure.in;
 
+import com.durys.jakub.accessmanagement.role.domain.Role;
 import com.durys.jakub.accessmanagement.role.domain.RoleRepository;
-import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
-import com.durys.jakub.accessmanagement.role.infrastructure.model.AddRolesToUserRequest;
 import com.durys.jakub.accessmanagement.role.infrastructure.model.RoleDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,31 +18,30 @@ public class RoleController {
 
     @GetMapping
     public List<RoleDTO> findAll() {
-        return RoleMapper.toDTO(keycloakUserRepository.getRoles());
+        return roleRepository.roles()
+                .stream()
+                .map(role -> new RoleDTO(role.name(), role.description()))
+                .toList();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody RoleDTO role) {
-        keycloakUserRepository.createRole(role);
+        roleRepository.save(new Role(role.getName(), role.getDescription()));
     }
 
     @PutMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable String name, @RequestBody RoleDTO role) {
-        keycloakUserRepository.updateRole(name, role);
+        roleRepository.save(new Role(name, role.getDescription()));
     }
 
     @DeleteMapping("/{name}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable String name) {
-        keycloakUserRepository.deleteRole(name);
-    }
-
-    @PostMapping("/{name}/roles")
-    @ResponseStatus(HttpStatus.OK)
-    public void addRoles(@RequestBody AddRolesToUserRequest request) {
-        keycloakUserRepository.addRolesToUser(request.getUserId(), request.getRoles());
+        Role role = roleRepository.findById(name)
+                .orElseThrow(() -> new RuntimeException("todo"));
+        roleRepository.delete(role);
     }
 
 }
