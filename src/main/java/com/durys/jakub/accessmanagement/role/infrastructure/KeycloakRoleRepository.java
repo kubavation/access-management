@@ -3,7 +3,6 @@ package com.durys.jakub.accessmanagement.role.infrastructure;
 import com.durys.jakub.accessmanagement.role.domain.Role;
 import com.durys.jakub.accessmanagement.role.domain.RoleRepository;
 import com.durys.jakub.accessmanagement.shared.keycloak.KeycloakClient;
-import com.durys.jakub.accessmanagement.shared.keycloak.KeycloakRoleConverter;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
 
