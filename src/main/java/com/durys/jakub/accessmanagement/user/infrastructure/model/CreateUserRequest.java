@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.user.infrastructure.dto.creational;
+package com.durys.jakub.accessmanagement.user.infrastructure.model;
 
 import com.durys.jakub.accessmanagement.role.infrastructure.model.RoleDTO;
 import lombok.Data;

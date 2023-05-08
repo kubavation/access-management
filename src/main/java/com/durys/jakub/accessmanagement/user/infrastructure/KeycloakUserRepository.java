@@ -5,7 +5,7 @@ import com.durys.jakub.accessmanagement.shared.keycloak.model.KeycloakUserCreate
 import com.durys.jakub.accessmanagement.role.infrastructure.model.RoleDTO;
 import com.durys.jakub.accessmanagement.user.domain.UserRepository;
 import com.durys.jakub.accessmanagement.user.domain.User;
-import com.durys.jakub.accessmanagement.user.infrastructure.dto.creational.CreateUserRequest;
+import com.durys.jakub.accessmanagement.user.infrastructure.model.CreateUserRequest;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
