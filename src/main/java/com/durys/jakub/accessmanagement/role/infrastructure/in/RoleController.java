@@ -1,9 +1,9 @@
 package com.durys.jakub.accessmanagement.role.infrastructure.in;
 
-import com.durys.jakub.accessmanagement.user.infrastructure.KeycloakUserRepository;
+import com.durys.jakub.accessmanagement.role.domain.RoleRepository;
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
-import com.durys.jakub.accessmanagement.role.infrastructure.model.dto.AddRolesToUserRequest;
-import com.durys.jakub.accessmanagement.role.infrastructure.model.dto.RoleDTO;
+import com.durys.jakub.accessmanagement.role.infrastructure.model.AddRolesToUserRequest;
+import com.durys.jakub.accessmanagement.role.infrastructure.model.RoleDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoleController {
 
-    private final KeycloakUserRepository keycloakUserRepository;
+    private final RoleRepository roleRepository;
 
     @GetMapping
     public List<RoleDTO> findAll() {

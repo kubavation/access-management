@@ -2,7 +2,7 @@ package com.durys.jakub.accessmanagement.user.infrastructure.in;
 
 import com.durys.jakub.accessmanagement.shared.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
-import com.durys.jakub.accessmanagement.role.infrastructure.model.dto.RoleDTO;
+import com.durys.jakub.accessmanagement.role.infrastructure.model.RoleDTO;
 import com.durys.jakub.accessmanagement.user.domain.UserRepository;
 import com.durys.jakub.accessmanagement.shared.mails.model.MailWithTemporaryPasswordDTO;
 import com.durys.jakub.accessmanagement.shared.mails.service.MailSenderService;
