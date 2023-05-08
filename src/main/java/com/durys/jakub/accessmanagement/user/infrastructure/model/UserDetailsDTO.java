@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.user.infrastructure.dto;
+package com.durys.jakub.accessmanagement.user.infrastructure.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

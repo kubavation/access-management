@@ -2,13 +2,13 @@ package com.durys.jakub.accessmanagement.user.infrastructure.in;
 
 import com.durys.jakub.accessmanagement.shared.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.role.mappers.RoleMapper;
-import com.durys.jakub.accessmanagement.role.infrastructure.model.dto.RoleDTO;
+import com.durys.jakub.accessmanagement.role.infrastructure.model.RoleDTO;
 import com.durys.jakub.accessmanagement.user.domain.UserRepository;
 import com.durys.jakub.accessmanagement.shared.mails.model.MailWithTemporaryPasswordDTO;
 import com.durys.jakub.accessmanagement.shared.mails.service.MailSenderService;
-import com.durys.jakub.accessmanagement.user.infrastructure.dto.UserDetailsDTO;
-import com.durys.jakub.accessmanagement.user.infrastructure.dto.UserStatusDTO;
-import com.durys.jakub.accessmanagement.user.infrastructure.dto.creational.CreateUserRequest;
+import com.durys.jakub.accessmanagement.user.infrastructure.model.UserDetailsDTO;
+import com.durys.jakub.accessmanagement.user.infrastructure.model.UserStatusDTO;
+import com.durys.jakub.accessmanagement.user.infrastructure.model.CreateUserRequest;
 import com.durys.jakub.accessmanagement.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
