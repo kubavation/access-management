@@ -5,6 +5,7 @@ import com.durys.jakub.accessmanagement.role.domain.RoleRepository;
 import com.durys.jakub.accessmanagement.shared.keycloak.KeycloakClientService;
 import com.durys.jakub.accessmanagement.shared.keycloak.KeycloakRoleConverter;
 import lombok.RequiredArgsConstructor;
+import org.keycloak.representations.idm.RoleRepresentation;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,11 +32,13 @@ public class KeycloakRoleRepository implements RoleRepository {
 
     @Override
     public void save(Role role) {
-        //todo
+        RoleRepresentation representation = KeycloakRoleConverter.instance().toRepresentation(role);
+        keycloakClientService.roles().add(representation);
     }
 
     @Override
     public void delete(Role role) {
-        //todo
+        RoleRepresentation representation = KeycloakRoleConverter.instance().toRepresentation(role);
+        keycloakClientService.roles().remove(representation);
     }
 }
