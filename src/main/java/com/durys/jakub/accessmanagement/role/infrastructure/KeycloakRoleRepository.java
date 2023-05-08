@@ -15,10 +15,10 @@ public class KeycloakRoleRepository implements RoleRepository {
 
     private final KeycloakClientService keycloakClientService;
 
-
     @Override
     public List<Role> roles() {
-        return KeycloakRoleConverter.instance().toRoles(keycloakClientService.roles());
+        return KeycloakRoleConverter.instance()
+                .toRoles(keycloakClientService.roles());
     }
 
     @Override

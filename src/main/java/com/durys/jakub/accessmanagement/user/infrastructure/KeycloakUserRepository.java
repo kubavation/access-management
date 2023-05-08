@@ -20,9 +20,6 @@ public class KeycloakUserRepository implements UserRepository {
     public KeycloakUserCreatedResponse createUser(CreateUserRequest request) {
         return keycloakClientService.createUser(request);
     }
-    public void addRolesToUser(String userId, List<RoleDTO> roles) {
-        keycloakClientService.updateUserRoles(userId, roles);
-    }
 
     public List<RoleRepresentation> getUserRoles(String id) {
         return keycloakClientService.userRoles(id);
