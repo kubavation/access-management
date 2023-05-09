@@ -41,6 +41,7 @@ public class RoleController {
     public void delete(@PathVariable String name) {
         Role role = roleRepository.findById(name)
                 .orElseThrow(() -> new RuntimeException("todo"));
+
         roleRepository.delete(role);
     }
 
