@@ -27,6 +27,10 @@ public class User {
         this(id, username, email, enabled, Collections.emptySet());
     }
 
+    public User(String id, String username, String email) {
+        this(id, username, email, true, Collections.emptySet());
+    }
+
     public void setRoles(@NonNull Set<Role> roles) {
         this.roles = roles;
     }
