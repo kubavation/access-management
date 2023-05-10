@@ -52,4 +52,15 @@ public class KeycloakUserRepository implements UserRepository {
                     .map(KeycloakRoleConverter.instance()::toRoles)
                     .orElse(Collections.emptyList());
     }
+
+    @Override
+    public void setRoles(String userId, List<Role> roles) {
+
+        List<String> roleNames = roles.stream()
+                .map(Role::name)
+                .toList();
+
+        keycloakClient.userById(userId)
+                .ifPresent(user -> user.setRealmRoles(roleNames));
+    }
 }

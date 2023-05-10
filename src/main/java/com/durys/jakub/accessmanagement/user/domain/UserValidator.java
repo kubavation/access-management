@@ -27,13 +27,13 @@ public class UserValidator {
         return null;
     }
 
-    boolean usernameAlreadyExists(String username) {
+    public boolean usernameAlreadyExists(String username) {
         return userRepository.users()
                 .stream()
                 .anyMatch(user -> user.getUsername().equals(username));
     }
 
-    boolean emailAlreadyExists(String email) {
+    public boolean emailAlreadyExists(String email) {
         return userRepository.users()
                 .stream()
                 .anyMatch(user -> user.getEmail().equals(email));

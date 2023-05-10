@@ -11,4 +11,5 @@ public interface UserRepository {
     void save(User user);
     void delete(User user);
     List<Role> userRoles(String userId);
+    void setRoles(String userId, List<Role> roles);
 }
