@@ -22,4 +22,10 @@ public class KeycloakClient {
     public List<RoleRepresentation> roles() {
         return realmResource.roles().list();
     }
+
+    public static List<RoleRepresentation> roleNamesToRepresentations(List<String> roleNames) {
+        return roleNames.stream()
+                .map(roleName -> new RoleRepresentation(roleName, null, false))
+                .toList();
+    }
 }

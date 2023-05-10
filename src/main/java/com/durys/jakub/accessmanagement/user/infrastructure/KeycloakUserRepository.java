@@ -52,9 +52,7 @@ public class KeycloakUserRepository implements UserRepository {
                 .filter(user -> user.getId().equals(id))
                 .findFirst()
                     .map(UserRepresentation::getRealmRoles)
-                    .map(roleNames -> roleNames.stream()
-                            .map(roleName -> new RoleRepresentation(roleName, null, false))
-                            .toList())
+                    .map(KeycloakClient::roleNamesToRepresentations)
                     .map(KeycloakRoleConverter.instance()::toRoles)
                     .orElse(Collections.emptyList());
     }
