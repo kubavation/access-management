@@ -6,7 +6,6 @@ import com.durys.jakub.accessmanagement.shared.keycloak.KeycloakClient;
 import com.durys.jakub.accessmanagement.user.domain.User;
 import com.durys.jakub.accessmanagement.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.keycloak.representations.idm.RoleRepresentation;
 import org.keycloak.representations.idm.UserRepresentation;
 
 import java.util.Collections;
@@ -47,10 +46,7 @@ public class KeycloakUserRepository implements UserRepository {
 
     @Override
     public List<Role> userRoles(String id) {
-        return keycloakClient.users()
-                .stream()
-                .filter(user -> user.getId().equals(id))
-                .findFirst()
+        return keycloakClient.userById(id)
                     .map(UserRepresentation::getRealmRoles)
                     .map(KeycloakClient::roleNamesToRepresentations)
                     .map(KeycloakRoleConverter.instance()::toRoles)
