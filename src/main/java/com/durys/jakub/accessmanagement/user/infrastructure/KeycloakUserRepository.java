@@ -1,11 +1,14 @@
 package com.durys.jakub.accessmanagement.user.infrastructure;
 
+import com.durys.jakub.accessmanagement.role.domain.Role;
+import com.durys.jakub.accessmanagement.role.infrastructure.KeycloakRoleConverter;
 import com.durys.jakub.accessmanagement.shared.keycloak.KeycloakClient;
 import com.durys.jakub.accessmanagement.user.domain.User;
 import com.durys.jakub.accessmanagement.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.representations.idm.UserRepresentation;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,5 +42,14 @@ public class KeycloakUserRepository implements UserRepository {
     public void delete(User user) {
         UserRepresentation representation = KeycloakUserConverter.instance().toRepresentation(user);
         keycloakClient.users().remove(representation);
+    }
+
+    @Override
+    public List<Role> userRoles(String id) {
+        return keycloakClient.userById(id)
+                    .map(UserRepresentation::getRealmRoles)
+                    .map(KeycloakClient::roleNamesToRepresentations)
+                    .map(KeycloakRoleConverter.instance()::toRoles)
+                    .orElse(Collections.emptyList());
     }
 }

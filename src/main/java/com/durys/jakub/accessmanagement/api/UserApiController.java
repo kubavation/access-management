@@ -1,9 +1,9 @@
 package com.durys.jakub.accessmanagement.api;
 
-import com.durys.jakub.accessmanagement.user.infrastructure.KeycloakUserRepository;
+import com.durys.jakub.accessmanagement.role.domain.Role;
+import com.durys.jakub.accessmanagement.user.domain.User;
+import com.durys.jakub.accessmanagement.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.keycloak.representations.idm.RoleRepresentation;
-import org.keycloak.representations.idm.UserRepresentation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,26 +16,27 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserApiController {
 
-    private final KeycloakUserRepository keycloakUserRepository;
+    private final UserRepository userRepository;
 
     @GetMapping("/{userId}")
-    UserRepresentation user(@PathVariable String userId) {
-        return keycloakUserRepository.getUser(userId);
+    User user(@PathVariable String userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(RuntimeException::new); //todo
     }
 
     @GetMapping("/{userId}/roles")
-    List<RoleRepresentation> userRoles(@PathVariable String userId) {
-        return keycloakUserRepository.getUserRoles(userId);
+    List<Role> userRoles(@PathVariable String userId) {
+        return userRepository.userRoles(userId);
     }
 
     @GetMapping("/{userId}/roles/contains/{role}")
     boolean hasRole(@PathVariable String userId, @PathVariable String role) {
-        return keycloakUserRepository.hasRole(userId, role);
+        return userRepository.userRoles(userId)
+                .stream()
+                .map(Role::name)
+                .toList()
+                .contains(role);
     }
 
-    @GetMapping("/roles/{role}")
-    List<UserRepresentation> usersWithRole(@PathVariable String role) {
-        return keycloakUserRepository.getUsersWithRole(role);
-    }
 
 }
