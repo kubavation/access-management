@@ -6,6 +6,7 @@ import com.durys.jakub.accessmanagement.role.infrastructure.model.RoleDTO;
 import com.durys.jakub.accessmanagement.shared.keycloak.model.KeycloakUserCreatedResponse;
 import com.durys.jakub.accessmanagement.shared.mails.model.MailWithTemporaryPasswordDTO;
 import com.durys.jakub.accessmanagement.shared.mails.service.MailSenderService;
+import com.durys.jakub.accessmanagement.user.application.UserApplicationService;
 import com.durys.jakub.accessmanagement.user.domain.User;
 import com.durys.jakub.accessmanagement.user.domain.UserRepository;
 import com.durys.jakub.accessmanagement.user.domain.UserValidator;
@@ -18,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -27,6 +27,7 @@ import java.util.Objects;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final UserApplicationService userApplicationService;
     private final MailSenderService mailSenderService;
 
     @GetMapping
@@ -37,6 +38,7 @@ public class UserController {
     @GetMapping("/{id}/details")
     public UserDetailsDTO getUserDetails(@PathVariable String id) {
        // return UserMapper.toDetailsDTO(keycloakClientApi.getUser(id));
+        return null;
     }
 
     @GetMapping("/{username}/exists")
@@ -45,24 +47,15 @@ public class UserController {
                .usernameAlreadyExists(username);
     }
 
-    @PatchMapping("/{userId}/status")
-    public void disableUser(@PathVariable String userId, @RequestBody UserStatusDTO userStatus) {
-
-        if (Objects.isNull(userStatus)) {
-            throw new IllegalArgumentException();
-        }
-
-        log.info("change user {} enabled-status to {}", userId, userStatus);
-
-        keycloakClientApi.changeUserStatus(userId, userStatus.isEnabled());
+    @PatchMapping("/{userId}/status/disabled")
+    public void disableUser(@PathVariable String userId) {
+        userApplicationService.disableUser(userId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createUser(@RequestBody CreateUserRequest createUserRequest) {
-        //todo appservice
-        KeycloakUserCreatedResponse createdUserResponse = keycloakClientApi.createUser(createUserRequest);
-        mailSenderService.send(MailWithTemporaryPasswordDTO.from(createdUserResponse.email(), createdUserResponse.password()));
+    public void createUser(@RequestBody CreateUserRequest req) {
+        userApplicationService.create(req.getUsername(), req.getEmail());
     }
 
     @PutMapping("/{userId}/roles")

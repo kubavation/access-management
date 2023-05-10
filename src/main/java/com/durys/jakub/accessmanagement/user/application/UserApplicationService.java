@@ -1,6 +1,8 @@
 package com.durys.jakub.accessmanagement.user.application;
 
 import com.durys.jakub.accessmanagement.ddd.annotation.ApplicationService;
+import com.durys.jakub.accessmanagement.shared.mails.model.MailWithTemporaryPasswordDTO;
+import com.durys.jakub.accessmanagement.shared.mails.service.MailSenderService;
 import com.durys.jakub.accessmanagement.user.domain.User;
 import com.durys.jakub.accessmanagement.user.domain.UserRepository;
 import com.durys.jakub.accessmanagement.user.domain.UserValidator;
@@ -14,7 +16,8 @@ import java.util.UUID;
 public class UserApplicationService {
 
     private final UserRepository userRepository;
-    
+    private final MailSenderService mailSenderService;
+
     public void create(String username, String email) {
 
         User user = new User(UUID.randomUUID().toString(), username, email);
@@ -27,6 +30,16 @@ public class UserApplicationService {
             //todo handle validationResult.getLeft()
         }
 
+        userRepository.save(user);
+        mailSenderService.send(MailWithTemporaryPasswordDTO.from());
+    }
+
+    public void disableUser(String id) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+
+        user.setEnabled(false);
         userRepository.save(user);
     }
 
