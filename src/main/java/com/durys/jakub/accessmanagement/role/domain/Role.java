@@ -1,3 +1,11 @@
 package com.durys.jakub.accessmanagement.role.domain;
 
-public record Role(String name, String description) {}
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@AllArgsConstructor
+@Data
+public class Role {
+    private String name;
+    private String description;
+}

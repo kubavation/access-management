@@ -1,8 +1,10 @@
 package com.durys.jakub.accessmanagement.role.infrastructure.in;
 
+import com.durys.jakub.accessmanagement.role.application.RoleApplicationService;
 import com.durys.jakub.accessmanagement.role.domain.Role;
 import com.durys.jakub.accessmanagement.role.domain.RoleRepository;
 import com.durys.jakub.accessmanagement.role.infrastructure.model.RoleDTO;
+import com.durys.jakub.accessmanagement.shared.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,34 +17,29 @@ import java.util.List;
 public class RoleController {
 
     private final RoleRepository roleRepository;
+    private final RoleApplicationService roleApplicationService;
 
     @GetMapping
-    public List<RoleDTO> findAll() {
-        return roleRepository.roles()
-                .stream()
-                .map(role -> new RoleDTO(role.name(), role.description()))
-                .toList();
+    public List<Role> findAll() {
+        return roleRepository.roles();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestBody RoleDTO role) {
-        roleRepository.save(new Role(role.getName(), role.getDescription()));
+    public void create(@RequestBody RoleDTO dto) {
+        roleApplicationService.create(dto.getName(), dto.getDescription());
     }
 
-    @PutMapping("/{name}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable String name, @RequestBody RoleDTO role) {
-        roleRepository.save(new Role(name, role.getDescription()));
+    public void update(@PathVariable String id, @RequestBody RoleDTO dto) {
+        roleApplicationService.update(id, dto.getName(), dto.getDescription());
     }
 
-    @DeleteMapping("/{name}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void delete(@PathVariable String name) {
-        Role role = roleRepository.findById(name)
-                .orElseThrow(() -> new RuntimeException("todo"));
-
-        roleRepository.delete(role);
+    public void delete(@PathVariable String id) {
+       roleApplicationService.delete(id);
     }
 
 }

@@ -1,6 +1,5 @@
 package com.durys.jakub.accessmanagement.shared.keycloak;
 
-import com.durys.jakub.accessmanagement.user.infrastructure.KeycloakUserRepository;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.keycloak.OAuth2Constants;
 import org.keycloak.admin.client.Keycloak;
@@ -46,17 +45,15 @@ class KeycloakExternalConfiguration {
     }
 
 
+    @Bean
     RealmResource realmResource() {
         return keycloakClient().realm(keycloakRealm);
     }
 
-    KeycloakClient keycloakClientService() {
-        return new KeycloakClient(realmResource());
+    @Bean
+    KeycloakClient keycloakClientService(RealmResource realmResource) {
+        return new KeycloakClient(realmResource);
     }
 
-    @Bean
-    KeycloakUserRepository keycloakClientApi() {
-        return new KeycloakUserRepository(keycloakClientService());
-    }
 
 }
