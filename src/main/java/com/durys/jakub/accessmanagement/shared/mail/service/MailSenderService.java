@@ -1,6 +1,6 @@
-package com.durys.jakub.accessmanagement.shared.mails.service;
+package com.durys.jakub.accessmanagement.shared.mail.service;
 
-import com.durys.jakub.accessmanagement.shared.mails.model.MailWithTemporaryPasswordDTO;
+import com.durys.jakub.accessmanagement.shared.mail.model.MailWithTemporaryPasswordDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.BodyInserters;

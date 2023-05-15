@@ -2,8 +2,8 @@ package com.durys.jakub.accessmanagement.user.application;
 
 import com.durys.jakub.accessmanagement.ddd.annotation.ApplicationService;
 import com.durys.jakub.accessmanagement.role.domain.Role;
-import com.durys.jakub.accessmanagement.shared.mails.model.MailWithTemporaryPasswordDTO;
-import com.durys.jakub.accessmanagement.shared.mails.service.MailSenderService;
+import com.durys.jakub.accessmanagement.shared.mail.model.MailWithTemporaryPasswordDTO;
+import com.durys.jakub.accessmanagement.shared.mail.service.MailSenderService;
 import com.durys.jakub.accessmanagement.user.domain.User;
 import com.durys.jakub.accessmanagement.user.domain.UserRepository;
 import com.durys.jakub.accessmanagement.user.domain.UserValidator;
