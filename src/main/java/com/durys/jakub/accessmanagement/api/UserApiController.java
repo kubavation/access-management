@@ -33,7 +33,7 @@ public class UserApiController {
     boolean hasRole(@PathVariable String userId, @PathVariable String role) {
         return userRepository.userRoles(userId)
                 .stream()
-                .map(Role::name)
+                .map(Role::getName)
                 .toList()
                 .contains(role);
     }
