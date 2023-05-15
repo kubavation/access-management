@@ -34,7 +34,7 @@ public class RoleController {
 
         Role role = roleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Role.class, id));
-        
+
         role.setName(dto.getName());
         role.setDescription(dto.getDescription());
 

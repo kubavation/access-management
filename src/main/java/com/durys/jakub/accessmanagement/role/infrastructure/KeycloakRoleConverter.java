@@ -20,8 +20,8 @@ public class KeycloakRoleConverter implements RoleConverter<RoleRepresentation> 
     @Override
     public RoleRepresentation toRepresentation(Role role) {
         RoleRepresentation representation = new RoleRepresentation();
-        representation.setName(role.name());
-        representation.setDescription(role.description());
+        representation.setName(role.getName());
+        representation.setDescription(role.getDescription());
         return representation;
     }
 }
