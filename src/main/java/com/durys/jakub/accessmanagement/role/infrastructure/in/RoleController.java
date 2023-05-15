@@ -33,22 +33,13 @@ public class RoleController {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable String id, @RequestBody RoleDTO dto) {
-
-        Role role = roleRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Role.class, id));
-
-        role.setName(dto.getName());
-        role.setDescription(dto.getDescription());
-
-        roleRepository.save(role);
+        roleApplicationService.update(id, dto.getName(), dto.getDescription());
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable String id) {
-        Role role = roleRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException(Role.class, id));
-        roleRepository.delete(role);
+       roleApplicationService.delete(id);
     }
 
 }
