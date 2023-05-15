@@ -1,5 +1,6 @@
 package com.durys.jakub.accessmanagement.role.infrastructure.in;
 
+import com.durys.jakub.accessmanagement.role.application.RoleApplicationService;
 import com.durys.jakub.accessmanagement.role.domain.Role;
 import com.durys.jakub.accessmanagement.role.domain.RoleRepository;
 import com.durys.jakub.accessmanagement.role.infrastructure.model.RoleDTO;
@@ -16,6 +17,7 @@ import java.util.List;
 public class RoleController {
 
     private final RoleRepository roleRepository;
+    private final RoleApplicationService roleApplicationService;
 
     @GetMapping
     public List<Role> findAll() {
@@ -25,7 +27,7 @@ public class RoleController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody RoleDTO dto) {
-        roleRepository.save(new Role(dto.getName(), dto.getDescription()));
+        roleApplicationService.create(dto.getName(), dto.getDescription());
     }
 
     @PutMapping("/{id}")

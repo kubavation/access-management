@@ -2,7 +2,6 @@ package com.durys.jakub.accessmanagement.role.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Setter;
 
 @AllArgsConstructor
 @Data
