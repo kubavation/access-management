@@ -4,6 +4,7 @@ import com.durys.jakub.accessmanagement.ddd.annotation.ApplicationService;
 import com.durys.jakub.accessmanagement.event.DomainEventPublisher;
 import com.durys.jakub.accessmanagement.role.domain.Role;
 import com.durys.jakub.accessmanagement.role.domain.RoleRepository;
+import com.durys.jakub.accessmanagement.role.domain.RoleValidator;
 import com.durys.jakub.accessmanagement.role.domain.event.RoleDeletedEvent;
 import com.durys.jakub.accessmanagement.role.domain.exception.RoleWithNameAlreadyExistsException;
 import com.durys.jakub.accessmanagement.shared.exception.EntityNotFoundException;
@@ -18,10 +19,9 @@ public class RoleApplicationService {
 
     public void create(String name, String description) {
 
-        roleRepository.findById(name)
-                .ifPresent(role -> {
-                    throw new RoleWithNameAlreadyExistsException(role.getName());
-                });
+        RoleValidator
+                .instance(roleRepository)
+                .validateRoleExists(name);
 
         Role role = new Role(name, description);
         roleRepository.save(role);
@@ -32,10 +32,9 @@ public class RoleApplicationService {
         Role role = roleRepository.findById(existingName)
                 .orElseThrow(() -> new EntityNotFoundException(Role.class, existingName));
 
-        roleRepository.findById(name)
-                .ifPresent(existingRole -> {
-                    throw new RoleWithNameAlreadyExistsException(existingRole.getName());
-                });
+        RoleValidator
+                .instance(roleRepository)
+                .validateRoleExists(name);
 
         role.setName(name);
         role.setDescription(description);
@@ -46,8 +45,8 @@ public class RoleApplicationService {
     public void delete(String id) {
         Role role = roleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Role.class, id));
-        roleRepository.delete(role);
 
+        roleRepository.delete(role);
         domainEventPublisher.emit(new RoleDeletedEvent(id));
     }
 
