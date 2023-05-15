@@ -2,6 +2,7 @@ package com.durys.jakub.accessmanagement.user.application;
 
 import com.durys.jakub.accessmanagement.ddd.annotation.ApplicationService;
 import com.durys.jakub.accessmanagement.role.domain.Role;
+import com.durys.jakub.accessmanagement.shared.exception.EntityNotFoundException;
 import com.durys.jakub.accessmanagement.shared.mail.model.MailWithTemporaryPasswordDTO;
 import com.durys.jakub.accessmanagement.shared.mail.service.MailSenderService;
 import com.durys.jakub.accessmanagement.user.domain.User;
@@ -39,16 +40,25 @@ public class UserApplicationService {
     public void disableUser(String id) {
 
         User user = userRepository.findById(id)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new EntityNotFoundException(User.class, id));
 
         user.setEnabled(false);
+        userRepository.save(user);
+    }
+
+    public void enableUser(String id) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(User.class, id));
+
+        user.setEnabled(true);
         userRepository.save(user);
     }
 
     public void deleteUser(String id) {
 
         User user = userRepository.findById(id)
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(() -> new EntityNotFoundException(User.class, id));
 
         userRepository.delete(user);
         userRepository.save(user);

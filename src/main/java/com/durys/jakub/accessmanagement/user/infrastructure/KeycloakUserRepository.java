@@ -57,7 +57,7 @@ public class KeycloakUserRepository implements UserRepository {
     public void setRoles(String userId, List<Role> roles) {
 
         List<String> roleNames = roles.stream()
-                .map(Role::name)
+                .map(Role::getName)
                 .toList();
 
         keycloakClient.userById(userId)
