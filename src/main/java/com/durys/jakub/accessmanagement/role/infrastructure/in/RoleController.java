@@ -17,11 +17,8 @@ public class RoleController {
     private final RoleRepository roleRepository;
 
     @GetMapping
-    public List<RoleDTO> findAll() {
-        return roleRepository.roles()
-                .stream()
-                .map(role -> new RoleDTO(role.name(), role.description()))
-                .toList();
+    public List<Role> findAll() {
+        return roleRepository.roles();
     }
 
     @PostMapping
