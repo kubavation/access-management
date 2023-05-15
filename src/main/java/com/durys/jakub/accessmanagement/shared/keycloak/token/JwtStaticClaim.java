@@ -1,4 +1,4 @@
-package com.durys.jakub.accessmanagement.shared.keycloak.api;
+package com.durys.jakub.accessmanagement.shared.keycloak.token;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
