@@ -45,6 +45,15 @@ public class UserApplicationService {
         userRepository.save(user);
     }
 
+    public void enableUser(String id) {
+
+        User user = userRepository.findById(id)
+                .orElseThrow(RuntimeException::new);
+
+        user.setEnabled(true);
+        userRepository.save(user);
+    }
+
     public void deleteUser(String id) {
 
         User user = userRepository.findById(id)

@@ -45,6 +45,11 @@ public class UserController {
         userApplicationService.disableUser(userId);
     }
 
+    @PatchMapping("/{userId}/status/enabled")
+    public void enableUser(@PathVariable String userId) {
+        userApplicationService.enableUser(userId);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createUser(@RequestBody CreateUserRequest req) {
