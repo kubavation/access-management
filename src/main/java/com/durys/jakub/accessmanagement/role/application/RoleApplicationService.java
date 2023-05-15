@@ -1,8 +1,10 @@
 package com.durys.jakub.accessmanagement.role.application;
 
 import com.durys.jakub.accessmanagement.ddd.annotation.ApplicationService;
+import com.durys.jakub.accessmanagement.event.DomainEventPublisher;
 import com.durys.jakub.accessmanagement.role.domain.Role;
 import com.durys.jakub.accessmanagement.role.domain.RoleRepository;
+import com.durys.jakub.accessmanagement.role.domain.event.RoleDeletedEvent;
 import com.durys.jakub.accessmanagement.role.domain.exception.RoleWithNameAlreadyExistsException;
 import com.durys.jakub.accessmanagement.shared.exception.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class RoleApplicationService {
 
     private final RoleRepository roleRepository;
+    private final DomainEventPublisher domainEventPublisher;
 
     public void create(String name, String description) {
 
@@ -44,6 +47,8 @@ public class RoleApplicationService {
         Role role = roleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(Role.class, id));
         roleRepository.delete(role);
+
+        domainEventPublisher.emit(new RoleDeletedEvent(id));
     }
 
 }
