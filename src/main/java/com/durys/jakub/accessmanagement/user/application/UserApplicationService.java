@@ -37,7 +37,7 @@ public class UserApplicationService {
         mailSenderService.send(MailWithTemporaryPasswordDTO.from(null, null));
     }
 
-    public void disableUser(String id) {
+    public void disable(String id) {
 
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(User.class, id));
@@ -46,7 +46,7 @@ public class UserApplicationService {
         userRepository.save(user);
     }
 
-    public void enableUser(String id) {
+    public void enable(String id) {
 
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(User.class, id));
@@ -55,7 +55,7 @@ public class UserApplicationService {
         userRepository.save(user);
     }
 
-    public void deleteUser(String id) {
+    public void delete(String id) {
 
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(User.class, id));
