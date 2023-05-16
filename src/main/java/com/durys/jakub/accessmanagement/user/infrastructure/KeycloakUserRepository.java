@@ -20,12 +20,12 @@ public class KeycloakUserRepository implements UserRepository {
     @Override
     public List<User> users() {
         return KeycloakUserConverter.instance()
-                .toUsers(keycloakClient.users());
+                .toUsers(keycloakClient.usersResource().list());
     }
 
     @Override
     public Optional<User> findById(String id) {
-        return keycloakClient.users()
+        return keycloakClient.usersResource().list()
                 .stream()
                 .filter(user -> user.getId().equals(id))
                 .map(user -> KeycloakUserConverter.instance().toUser(user))
@@ -35,18 +35,21 @@ public class KeycloakUserRepository implements UserRepository {
     @Override
     public void save(User user) {
         UserRepresentation representation = KeycloakUserConverter.instance().toRepresentation(user);
-        keycloakClient.users().add(representation);
+        keycloakClient.usersResource().create(representation);
     }
 
     @Override
     public void delete(User user) {
         UserRepresentation representation = KeycloakUserConverter.instance().toRepresentation(user);
-        keycloakClient.users().remove(representation);
+        keycloakClient.usersResource().delete(representation.getId());
     }
 
     @Override
     public List<Role> userRoles(String id) {
-        return keycloakClient.userById(id)
+        return keycloakClient.usersResource().list()
+                    .stream()
+                    .filter(user -> user.getId().equals(id))
+                    .findFirst()
                     .map(UserRepresentation::getRealmRoles)
                     .map(KeycloakClient::roleNamesToRepresentations)
                     .map(KeycloakRoleConverter.instance()::toRoles)
@@ -60,7 +63,10 @@ public class KeycloakUserRepository implements UserRepository {
                 .map(Role::getName)
                 .toList();
 
-        keycloakClient.userById(userId)
+        keycloakClient.usersResource().list()
+                .stream()
+                .filter(user -> user.getId().equals(userId))
+                .findFirst()
                 .ifPresent(user -> user.setRealmRoles(roleNames));
     }
 }
