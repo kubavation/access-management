@@ -61,7 +61,6 @@ public class UserApplicationService {
                 .orElseThrow(() -> new EntityNotFoundException(User.class, id));
 
         userRepository.delete(user);
-        userRepository.save(user);
     }
 
     public void setRoles(String id, List<Role> roles) {
