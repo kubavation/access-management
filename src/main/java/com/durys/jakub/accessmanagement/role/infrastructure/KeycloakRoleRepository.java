@@ -19,12 +19,12 @@ public class KeycloakRoleRepository implements RoleRepository {
     @Override
     public List<Role> roles() {
         return KeycloakRoleConverter.instance()
-                .toRoles(keycloakClient.roles());
+                .toRoles(keycloakClient.rolesResource().list());
     }
 
     @Override
     public Optional<Role> findById(String id) {
-        return keycloakClient.roles()
+        return keycloakClient.rolesResource().list()
                 .stream()
                 .filter(role -> role.getName().equals(id))
                 .map(role -> KeycloakRoleConverter.instance().toRole(role))
@@ -34,18 +34,18 @@ public class KeycloakRoleRepository implements RoleRepository {
     @Override
     public void save(Role role) {
         RoleRepresentation representation = KeycloakRoleConverter.instance().toRepresentation(role);
-        keycloakClient.roles().add(representation);
+        keycloakClient.rolesResource().create(representation);
     }
 
     @Override
     public void delete(Role role) {
         RoleRepresentation representation = KeycloakRoleConverter.instance().toRepresentation(role);
-        keycloakClient.roles().remove(representation);
+        keycloakClient.rolesResource().deleteRole(representation.getId());
     }
 
     @Override
     public List<User> usersWithRole(String roleName) {
-        return keycloakClient.users()
+        return keycloakClient.usersResource().list()
                 .stream()
                 .filter(user -> user.getRealmRoles().contains(roleName))
                 .map(KeycloakUserConverter.instance()::toUser)
