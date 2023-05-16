@@ -42,12 +42,12 @@ public class UserController {
 
     @PatchMapping("/{userId}/status/disabled")
     public void disableUser(@PathVariable String userId) {
-        userApplicationService.disableUser(userId);
+        userApplicationService.disable(userId);
     }
 
     @PatchMapping("/{userId}/status/enabled")
     public void enableUser(@PathVariable String userId) {
-        userApplicationService.enableUser(userId);
+        userApplicationService.enable(userId);
     }
 
     @PostMapping
@@ -65,7 +65,7 @@ public class UserController {
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteUser(@PathVariable String userId) {
-        userApplicationService.deleteUser(userId);
+        userApplicationService.delete(userId);
     }
 
     @GetMapping("/{id}/roles")
