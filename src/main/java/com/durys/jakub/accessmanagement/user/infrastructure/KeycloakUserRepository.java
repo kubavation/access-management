@@ -6,10 +6,13 @@ import com.durys.jakub.accessmanagement.shared.keycloak.KeycloakClient;
 import com.durys.jakub.accessmanagement.user.domain.User;
 import com.durys.jakub.accessmanagement.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.keycloak.admin.client.resource.UserResource;
 import org.keycloak.representations.idm.UserRepresentation;
 
+import javax.ws.rs.core.Response;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -34,8 +37,15 @@ public class KeycloakUserRepository implements UserRepository {
 
     @Override
     public void save(User user) {
+
         UserRepresentation representation = KeycloakUserConverter.instance().toRepresentation(user);
-        keycloakClient.usersResource().create(representation);
+
+        if (Objects.isNull(user.getId())) {
+            keycloakClient.usersResource().create(representation);
+        }
+
+        UserResource userResource = keycloakClient.usersResource().get(user.getId());
+        userResource.update(representation);
     }
 
     @Override
